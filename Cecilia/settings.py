@@ -114,7 +114,7 @@ DATABASES = {
         'NAME': 'gestora_de_entidades',
         'HOST': 'localhost',
         'USER': 'root',
-        'PORT': 3307,
+        'PORT': 3306,
     }
 }
 
