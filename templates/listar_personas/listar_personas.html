@@ -31,7 +31,7 @@
 
 <div class="tabla_entera">
   <div class="container-fluid">
-    <input type="search" class="buscador_general form-control" id="buscador_general" placeholder="Busqueda general">
+    <input type="search" class="buscador_general form-control" id="buscador_general" placeholder="Busqueda general" data-toggle="tooltip" title="Buscador general">
   </div>
   <div class="container-fluid">
     <div class="notificacion" id="notificacion_1">
@@ -142,14 +142,16 @@
 
 <!--INICIO VENTANA MODAL DE CREACION DE PERSONA-->
 <div class="modal fade" id="div_crear_persona_nueva">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Formulario de creacion de personas</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
       </div>
       <div class="modal-body">
+
         <div id="div_formulario_crear_persona">
+
 
         </div>
       </div>
@@ -206,6 +208,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
       </div>
       <div class="modal-body">
+        <a href="#" class="tooltip-test" title="ascascas" data-container="#exampleModalPopovers" data-original-title="Tooltip">This link</a>
         <div id="div_formulario_eliminacion_persona_aplicacion">
 
         </div>
@@ -214,7 +217,5 @@
   </div>
 </div>
 <!--INICIO VENTANA MODAL DE ELIMINACION DE PERSONA APLICACION-->
-
-
 
 {% endblock %}

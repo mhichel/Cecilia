@@ -59,6 +59,7 @@ MIDDLEWARE = [
 ]
 
 #PRUEBA DE AUTENTICACION CON DIRECOTRIO ACTIVO****************************************************
+"""
 AUTHENTICATION_BACKENDS = [
     'nick.auth.LDAPSaslBackend',
     #'django_auth_ldap_ad.backend.LDAPBackend',
@@ -79,7 +80,7 @@ AUTH_LDAP_USER_SEARCH = LDAPSearch("dc=co.grupodigitex.com,dc=tld",
     ldap.SCOPE_SUBTREE, "(sAMAccountName=%(user)s)")
 AUTH_LDAP_USER_ATTR_MAP = {"first_name": "givenName", "last_name": "sn", "email":"mail"}
 #PRUEBA DE AUTENTICACION CON DIRECOTRIO ACTIVO****************************************************
-
+"""
 
 
 

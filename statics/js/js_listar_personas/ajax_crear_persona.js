@@ -227,13 +227,13 @@ function iniciar_ajax_crear_persona(){
 
       //despues vamos a obtener las aplicaciones que se van a agregar a la persona nueva
       //primero creamos una variable, la cual contendra todas las aplicaciones que estan checked
-      var aplicacion_a_adicionar_persona_nueva = "&aplicaciones=";
+      var array_aplicacion_a_adicionar_persona_nueva = []
       //aqui vamos a obtener los checkbox que estan chuleados, vamos  ahacer un for para iterar de nuevo todos los elementos que sea de tipo checkbox dentro de la variable de los checkbox_aplicaciones_crear_persona_nueva
       //este for nos va hacer la obtencion de los valores de las aplicaciones, los cuales despues enviados mediante AJAX a Django se van aconvertir en una lista.
       for (var i = 0; i < checkbox_aplicaciones_crear_persona_nueva.length; i++) {
         if (checkbox_aplicaciones_crear_persona_nueva[i].type == "checkbox") {
           if (checkbox_aplicaciones_crear_persona_nueva[i].checked) {
-            aplicacion_a_adicionar_persona_nueva+=checkbox_aplicaciones_crear_persona_nueva[i].value;
+            array_aplicacion_a_adicionar_persona_nueva.push(checkbox_aplicaciones_crear_persona_nueva[i].value);
           }
         }
       }
@@ -283,7 +283,7 @@ function iniciar_ajax_crear_persona(){
       // no podemos obtener el id, asi que el id lo podriamos obtener en Django y no aqui
 
       //por ultimo haremos la variable URL. la cual obtendra el valos de todas las demas variables y las ordenara
-      var url = `${token}&${nombre_completo}${aplicacion_a_adicionar_persona_nueva}&${cargo}&${bodega}&array_de_usuarios=${array_de_usuarios}&array_de_tickets=${array_de_tickets}`;
+      var url = `${token}&${nombre_completo}&aplicaciones=${array_aplicacion_a_adicionar_persona_nueva}&${cargo}&${bodega}&array_de_usuarios=${array_de_usuarios}&array_de_tickets=${array_de_tickets}`;
       console.log(url);
       //ahora llamamos la funcion para enviar la peticion AJAX y le pasamos como parametro la URL que creamos, la cual tiene todos los datos
       enviar_datos_AJAX_crear_persona_POST(url);

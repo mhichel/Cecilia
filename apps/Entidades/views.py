@@ -54,18 +54,13 @@ def trigger_hisotrico(persona):
 def crear_persona(request):
     if request.method == "POST":
         print(request.POST)
-        #aqui hacemos el array que va a contener las aplicaciones que sacamos de la request
-        aplicaciones_POST = []
-        #aqui hacemos el for a las aplicaciones que trajimos del AJAX y las metemos en el array
-        for a in request.POST.get('aplicaciones'):
-            aplicaciones_POST.append(a)
 
         #ahora vamos a hacer el diccionario que contendra todos los campos necesarios para que el formulario de creacion de una nueva persona
         dic_persona_nueva = {}
         #primero vamos a traer el nombre completo de la persona y lo agregamos al diccionario como una lista y con el nombre del campo del formulario exacto, para que funcione correctamente
         dic_persona_nueva['nombre_completo'] = [request.POST.get('nombre_completo')]
-        #ahora vamos a traer las aplicaciones que se van a agregar a la persona y las metemos al formulario como una lista, traemos la variable o a lista que creamos anteriormente con el for
-        dic_persona_nueva['aplicaciones'] = aplicaciones_POST
+        #ahora vamos a traer las aplicaciones que se van a agregar a la persona y las metemos al formulario como una lista, traemos la variable o a lista que creamos mediante la separacion de los elementos con el metodo split, ya que si los pasamos asi los meteria todos en una string y no los separaria
+        dic_persona_nueva['aplicaciones'] = request.POST.get('aplicaciones').split(',')
         #ahora traemos el valor del cargo asignado a la nueva persona y lo agregamos al diccionario
         dic_persona_nueva['cargo'] = [request.POST.get('cargo')]
         #ahora traemos el valor de la ubicacion asignada a la nueva persona y lo agregamos tambien al diccionario
@@ -83,6 +78,7 @@ def crear_persona(request):
 
         #hacemos una variable que contendra el formulario y dentro del formulario le pasamos como parametro el diccionario de consulta que creamos anteriormente
         form_creacion_persona_nueva = PersonaForm(dic_persona_nueva_convertido)
+        print(dic_persona_nueva_convertido)
         #ahora hacemos la validacion del formulario y si es valido entonces lo guardamos
         if form_creacion_persona_nueva.is_valid():
             #lo guardamos si es valido
@@ -99,8 +95,10 @@ def crear_persona(request):
             array_de_tickets = request.POST.get('array_de_tickets').split(',')
             #hacemos el array que contendra los nombre de usuario, tambien lo partimos con el metodo split
             array_de_usuarios = request.POST.get('array_de_usuarios').split(',')
+            #hacemos el array de las aplicaciones_POST
+            array_de_aplicaciones = request.POST.get('aplicaciones').split(',')
 
-            for aplicacion,ticket,nombre_usuario in zip(aplicaciones_POST, array_de_tickets, array_de_usuarios):
+            for aplicacion,ticket,nombre_usuario in zip(array_de_aplicaciones, array_de_tickets, array_de_usuarios):
                 #ahora aqui vamos a empezar a hacer el diccionario que va a contener los datos
                 #y este diccionario despues lo vamos a convertir en un diccionario de consulta y lo enviaremos al formulario y lo guardaremos
                 contenido = {}
@@ -157,6 +155,7 @@ def crear_persona(request):
         form_creacion_persona_nueva = PersonaForm()
         #qui lo que indicamos es que si el estado de la peticion devuleve que solo vamos a enviar un formulario vacio, quiere decir que todavia no hemos enviado los datos, por lo que lo que vamos aneviar por estado es todavia en ingles (yet)
         estado = "yet"
+        print("no es valido")
 
     #aqui lo que vamos ha hacer es que si la persona, esta dentro de la variables locales, osea que si existe persona, quiere decir que el formulario se guardo correctamente, entcones lo que enviaremos ala template, sera el estado bien y la persona nueva para poder mostrar sus datos
     if "persona" in locals():
