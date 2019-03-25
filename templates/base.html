@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="es" dir="ltr">
+<link rel="shortcut icon" href="{% static 'img/favicon.gif' %}"
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimum-scale=1.0">
+<link rel="stylesheet" href={% static "css/css_bootstrap/bootstrap.css" %}>
+  <head>
+    <meta charset="utf-8">
+    {% block css %}{% endblock %}
+    {% block js %}{% endblock %}
+    {% block title %}<title></title>{% endblock %}
+  </head>
+  <body>
+    {% block content %}
+    {% endblock %}
+    <script type="text/javascript" src="{% static 'js/js_bootstrap/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/js_bootstrap/bootstrap.js' %}"></script>
+  </body>
+</html>

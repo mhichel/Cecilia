@@ -1,0 +1,165 @@
+/*GENERICA*****************************************************/
+/*esta es la clase generica de el DIV de notificacion*/
+.notificacion{
+  position: relative;
+  opacity: 0;
+  transition: 2s;
+  background: rgb(178, 244, 182);
+}
+/*esta es la clase generica de el DIV de notificacion*/
+
+/*esta es la clase de imagen de notificacion generica*/
+.imagen_notificacion{
+  padding: 0px 10px;
+  vertical-align: middle;
+  opacity: 0;
+  transition: 2s;
+  width: 30px;
+  height: 30px;
+}
+/*esta es la clase de imagen de notificacion generica*/
+
+/*esta es la clase de texto de notificacion generico*/
+#texto_notificacion{
+  padding: 0px 10px;
+  font-family: monospace;
+  font-size: 120%;
+  display: inline-block;
+  vertical-align: middle;
+  color: black;
+}
+/*esta es la clase de texto de notificacion generico*/
+/*GENERICA*****************************************************/
+
+/*CREACION DE PERSONA CORRECTA******************************************/
+/*esta es la clase del div notificacion cuando crea una persona correctamente*/
+.notificacion_crear_persona_correcto{
+  position: relative;
+  opacity: 1;
+  transition: 2s;
+  background: rgb(168, 242, 145);
+}
+/*esta es la clase del div notificacion cuando crea una persona correctamente*/
+
+
+/*esta es la clase de imagen de notificacion cuando crea una persona correctamente*/
+.img_notificacion_correcto_crear_persona{
+  padding: 0px 10px;
+  vertical-align: middle;
+  width: 5%;
+  height: 5%;
+  transition: 2s;
+  opacity: 1;
+}
+/*esta es la clase de imagen de notificacion cuando crea una persona correctamente*/
+/*CREACION DE PERSONA CORRECTA******************************************/
+
+
+
+
+
+/*EDICION DE PERSONA CORRECTA******************************************/
+/*esta es la clase del div notificacion cuando edita una persona correctamente*/
+.notificacion_editar_persona_correcto{
+  position: relative;
+  opacity: 1;
+  transition: 2s;
+  background: rgb(145, 193, 242);
+}
+/*esta es la clase del div notificacion cuando edita una persona correctamente*/
+
+
+/*esta es la clase de imagen de notificacion cuando edita una persona correctamente*/
+.img_notificacion_correcto_editar_persona{
+  padding: 0px 10px;
+  vertical-align: middle;
+  width: 5%;
+  height: 5%;
+  transition: 2s;
+  opacity: 1;
+}
+/*esta es la clase de imagen de notificacion cuando edita una persona correctamente*/
+/*EDICION DE PERSONA CORRECTA******************************************/
+
+
+
+
+/*CREACION DE APLICACION PERSONA CORRECTA******************************************/
+/*esta es la clase del div notificacion cuando crea una aplicacion a una persona correctamente*/
+.notificacion_crear_apliacion_persona_correcto{
+  position: relative;
+  opacity: 1;
+  transition: 2s;
+  background: rgb(209, 181, 241);
+}
+/*esta es la clase del div notificacion cuando crea una aplicacion a una persona correctamente*/
+
+
+/*esta es la clase de imagen de notificacion cuando crea una aplicacion a una persona correctamente*/
+.img_notificacion_correcto_crear_aplicacion_persona{
+  padding: 0px 10px;
+  vertical-align: middle;
+  width: 5%;
+  height: 5%;
+  transition: 2s;
+  opacity: 1;
+}
+/*esta es la clase de imagen de notificacion cuando crea una aplicacion a una persona correctamente*/
+/*CREACION DE APLICACION PERSONA CORRECTA******************************************/
+
+
+
+
+
+
+
+/*ELIMINACION DE APLICACION PERSONA CORRECTA******************************************/
+/*esta es la clase del div notificacion cuando elimina una aplicacion a una persona correctamente*/
+.notificacion_eliminar_apliacion_persona_correcto{
+  position: relative;
+  opacity: 1;
+  transition: 2s;
+  background: rgb(241, 226, 181);
+}
+/*esta es la clase del div notificacion cuando elimina una aplicacion a una persona correctamente*/
+
+
+/*esta es la clase de imagen de notificacion cuando elimina una aplicacion a una persona correctamente*/
+.img_notificacion_correcto_eliminar_aplicacion_persona{
+  padding: 0px 10px;
+  vertical-align: middle;
+  width: 5%;
+  height: 5%;
+  transition: 2s;
+  opacity: 1;
+}
+/*esta es la clase de imagen de notificacion cuando elimina una aplicacion a una persona correctamente*/
+/*ELIMINACION DE APLICACION PERSONA CORRECTA******************************************/
+
+
+
+
+
+
+/*ELIMINACION PERSONA CORRECTA******************************************/
+/*esta es la clase del div notificacion cuando elimina una persona correctamente*/
+.notificacion_eliminar_persona_correcto{
+  position: relative;
+  opacity: 1;
+  transition: 2s;
+  background: rgb(241, 181, 181);
+}
+/*esta es la clase del div notificacion cuando elimina una persona correctamente*/
+
+
+/*esta es la clase de imagen de notificacion cuando elimina una persona correctamente*/
+.img_notificacion_correcto_eliminar_persona{
+  padding: 0px 10px;
+  vertical-align: middle;
+  width: 5%;
+  height: 5%;
+  transition: 2s;
+  opacity: 1;
+}
+/*esta es la clase de imagen de notificacion cuando elimina una persona correctamente*/
+/*ELIMINACION PERSONA CORRECTA******************************************/

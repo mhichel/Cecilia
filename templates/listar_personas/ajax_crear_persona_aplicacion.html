@@ -1,0 +1,33 @@
+{% load staticfiles %}
+{% if form == "bien" %}
+  <tr id=tres{{persona.id}} class="clearfix visible-md-block">
+    <td class="col-md-2">{{persona.ubicacion}}</td>
+    <td class="col-md-2">{{persona.nombre_completo}}</td>
+    <td class="col-md-2">{{persona.cargo}}</td>
+    <td class="col-md-4">
+      {% for usuario in persona.usuario_set.all %}
+        {% for aplicacion in usuario.aplicacion_relacionada.all %}
+          <li>{{aplicacion}} ({{usuario.usuario}})({{usuario.ticket}})</li>
+        {% endfor %}
+      {% endfor %}
+    </td>
+    <td class="col-md-2">
+      <a href="#div_editar_persona" class="boton_accion_editar" id={{persona.id}} data-toggle="modal"><img src={% static "img/botones/editar_blanco.gif" %} alt="editar_persona" name="boton_accion_editar" id={{persona.id}}></a>
+      <a href="#div_eliminar_persona" class="boton_accion_eliminar" id={{persona.id}} name={{persona.nombre_completo}} data-toggle="modal"><img src={% static "img/botones/cesta_blanca.gif" %} alt="eliminar" name="{{persona.nombre_completo}}" id={{persona.id}} class="boton_accion"></a>
+      <a href="#div_crear_persona" class="boton_accion_crear_aplicacion" id={{persona.id}} data-toggle="modal"><img src={% static "img/botones/crear_blanco_persona.gif" %} alt="crear_aplicacion" name="boton_accion" id={{persona.id}}><img src="{% static "img/botones/chulo_tuerca_1.gif" %}" alt="chula_crear_aplicacion" name="chulo_tuerca" id={{persona.id}}></a>
+      <a href="#div_eliminar_aplicacion_persona" class="boton_accion_eliminar_aplicacion" id={{persona.id}} data-toggle="modal"><img src={% static "img/botones/crear_blanco_persona.gif" %} alt="crear_aplicacion" name="boton_accion" id={{persona.id}}><img src={% static "img/botones/x_redonda_1.gif" %} name="x_redonda" id={{persona.id}}></a>
+    </td>
+  </tr>
+{% else %}
+  <form method="post" id="formulario_de_crear_persona_aplicacion">
+    {% csrf_token %}
+    <div class="checkbox">
+      {{form.aplicaciones}}
+    </div>
+    {{form.nombre_completo}}
+    {{form.cargo}}
+    {{form.ubicacion}}
+    <button type="submit" name="button" class="btn btn-primary btn-block">Adicionar</button>
+    <button type="button" name="button" class="btn btn-warning btn-block" data-dismiss="modal">Cerrar</button>
+  </form>
+{% endif %}

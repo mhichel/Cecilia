@@ -1,0 +1,40 @@
+{% load staticfiles %}
+{% if metodo == "GET" %}
+  <form method="post" id="formulario_de_edicion_de_persona">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="id_nombre_completo">Nombre</label>
+        {{form.nombre_completo}}
+    </div>
+    <div class="form-group">
+        <label for="id_cargo">Cargo</label>
+          {{form.cargo}}
+    </div>
+    <div class="form-group">
+      <label for="id_ubicacion">Ubicacion</label>
+        {{form.ubicacion}}
+    </div>
+    <br>
+    <button type="submit" name="button" class="btn btn-primary btn-block">Guardar cambios</button>
+    <button type="button" name="button" class="btn btn-danger btn-block" data-dismiss="modal">Cerrar</button>
+  </form>
+{% elif metodo == "POST" %}
+  <tr id=tres{{form.id}} class="clearfix visible-md-block">
+    <td class="col-md-2">{{form.ubicacion}}</td>
+    <td class="col-md-2">{{form.nombre_completo}}</td>
+    <td class="col-md-2">{{form.cargo}}</td>
+    <td class="col-md-4">
+      {% for usuario in form.usuario_set.all %}
+        {% for aplicacion in usuario.aplicacion_relacionada.all %}
+          <li>{{aplicacion}} ({{usuario.usuario}})({{usuario.ticket}})</li>
+        {% endfor %}
+      {% endfor %}
+    </td>
+    <td class="col-md-2">
+      <a href="#div_editar_persona" class="boton_accion_editar" id={{form.id}} data-toggle="modal"><img src={% static "img/botones/editar_blanco.gif" %} alt="editar_persona" name="boton_accion_editar" id={{form.id}}></a>
+      <a href="#div_eliminar_persona" class="boton_accion_eliminar" id={{form.id}} name={{form.nombre_completo}} data-toggle="modal"><img src={% static "img/botones/cesta_blanca.gif" %} alt="eliminar" name="{{form.nombre_completo}}" id={{form.id}} class="boton_accion"></a>
+      <a href="#div_crear_persona" class="boton_accion_crear_aplicacion" id={{form.id}} data-toggle="modal"><img src={% static "img/botones/crear_blanco_persona.gif" %} alt="crear_aplicacion" name="boton_accion" id={{form.id}}><img src="{% static "img/botones/chulo_tuerca_1.gif" %}" alt="chula_crear_aplicacion" name="chulo_tuerca" id={{form.id}}></a>
+      <a href="#div_eliminar_aplicacion_persona" class="boton_accion_eliminar_aplicacion" id={{form.id}} data-toggle="modal"><img src={% static "img/botones/crear_blanco_persona.gif" %} alt="crear_aplicacion" name="boton_accion" id={{form.id}}><img src={% static "img/botones/x_redonda_1.gif" %} name="x_redonda" id={{form.id}}></a>
+    </td>
+  </tr>
+{% endif %}

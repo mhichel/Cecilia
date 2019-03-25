@@ -1,0 +1,35 @@
+################################
+	#   models.py
+	##########################################
+
+	from django.db import models
+
+	class Jugadores(models.model):
+	     nombre=models.CharField(max_length=45)  # 45 caracteres para definicion del nombre en Jugadores
+
+	class Ranking(models.model):
+	     jugador=models.ForeignKey(Jugadores)	# Clave que enlaza con Jugadores
+	     puntos=models.IntegerField(default=0)	# entero con total de puntos y 0 por defecto.
+							# Al ordenar Ranking por puntos, tendremos el ranking de jugadores
+
+	class Partidas(models.model):
+		jugador=models.ForeignKey(Jugadores)	# Clave que enlaza con Jugadores
+		puntos=models.IntegerField(default=0)	# puntos por partida
+		def save(self, *args, **kwargs):		# redefinicion del metodo save() que contiene nuestro trigger
+			 # Aqui ponemos el codigo del trigger -------
+		 	rank=Ranking.objects.get(jugador=self.jugador)
+		 	rank.puntos+=self.puntos
+		 	rank.save()
+		 	# fin de trigger ------
+		 	return super(Partidas, self).save( *args, **kwargs)  # llamada al save() original con sus parámetros correspondientes
+
+	####################
+	# llamada en views.py
+	#####################
+
+	def anotaPuntos(request, idjugador, puntos):
+	    jugador=Jugadores.objects.get(id=idjugador)			# obtencion del jugador por id de jugador
+	    partida=Partidas.objects.create(jugador=jugador, puntos=puntos)	# creacion de partida
+	    partida.save()							# al salvar, se llama a nuestro trigger. Otra aproximación sería
+	    return HttpResponse("ok")						# crear directamente un método independiente con el trigger en
+                                                                                              # Partidas

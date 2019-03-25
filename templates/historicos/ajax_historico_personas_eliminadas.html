@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block css %}
+<link rel="stylesheet" href={% static "css/css_historicos/estilos_body.css" %}>
+<link rel="stylesheet" href={% static "css/css_historicos/botones_acciones.css" %}>
+<link rel="stylesheet" href={% static "css/css_historicos/estilos_form_busqueda_por_fecha.css" %}>
+<link rel="stylesheet" href={% static "css/estilos_home.css" %}>
+<link rel="stylesheet" href={% static "css/tabla_fija.css" %}>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{% static 'js/js_historicos/ajax_historico_personas_eliminadas.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<header>
+  <div class="container-fluid div_logo">
+    <h1 class="texto_logo">Gestora de entidades Cecilia<img src={% static "img/logo.gif" %} alt="logo" class="logo"></h1>
+    {% if usuario.META.USERNAME %}
+      <h3 class="usuario">Bienvenid@ {{usuario.META.USERNAME}}!</h3>
+    {% else %}
+      <h3 class="usuario">Registro de personas eliminadas</h3>
+    {% endif %}
+  </div>
+</header>
+<br>
+<div class="container-fluid">
+  Busca aqui:
+  <input type="search" class="boton_busqueda_general_historico_personas_eliminadas" id="boton_busqueda_general_historico_personas_eliminadas" placeholder="Busqueda general">
+</div>
+  <br>
+  <div class="container-fluid">
+    <fieldset id="formulario_busqueda_por_fecha">
+      <legend>Buscador por fecha</legend>
+      <form method="get" id="fechas_inicio_fin_historico_personas_eliminadas">
+        Inicio:
+        <input type="date" id="fecha_inicio">
+        Fin:
+        <input type="date" id="fecha_fin">
+        <input type="submit" value="Buscar" class="btn btn-info">
+        <input type="button" id="limpiar_fechas_historico_personas_eliminadas" value="Limpiar" class="btn btn-warning">
+      </form>
+    </fieldset>
+  </div>
+  <br>
+  <br>
+<div class="table-responsive">
+  <div class="tabla_entera container-fluid">
+    <table class="tabla_historico table table-striped table-bordered table-hover table-fixed">
+      <thead>
+        <tr class="bg-info clearfix visible-md-block tr_principal"><th colspan="4" id="titulo_tabla_personas_eliminadas" class="col-md-11">Registro de personas eliminadas</th><th class="col-md-1 th_acciones"><a href="#" class="boton_accion_exportar_excel" id="exportar_excel"><img src={% static "img/botones/exportar_excel.gif" %} alt="exportar_a_excel" name="boton_accion" id="exportar_excel_historico_personas_eliminadas" class="boton_accion_exportar_excel"></a><a href={% url 'home' %}><img src="{% static "img/botones/retroceder.gif" %}" alt="retroceder" class="retroceder"></a></th></tr>
+        <th class="col-md-2">Hora de creacion</th>
+        <th class="col-md-4">Persona</th>
+        <th class="col-md-2">Aplicaciones</th>
+        <th class="col-md-2">Cargo</th>
+        <th class="col-md-2">Ubicacion</th>
+      </thead>
+      <tbody id="tbody_historico_personas_eliminadas">
+          {% for persona in personas %}
+            <tr class="clearfix visible-md-block">
+              <td class="col-md-2">
+                {{persona.hora}}
+              </td>
+              <td class="col-md-4">
+                {{persona.persona}}
+              </td>
+              <td class="col-md-2">
+                {{persona.aplicaciones}}
+              </td>
+              <td class="col-md-2">
+                {{persona.cargo}}
+              </td>
+              <td class="col-md-2">
+                {{persona.ubicacion}}
+              </td>
+            </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+    </div>
+</div>
+
+  {% endblock %}

@@ -1,0 +1,263 @@
+/*ESTILOS PARA TODAS LAS IMAGENES DENTRO DE LOS A HREF DE LAS ACCIONES*/
+img[name="boton_accion"]{
+  height: 40px;
+  width: 40px;
+  padding: 7px;
+}
+/*aqui colocamos la clase boton de accion, para el boton de eliminar, ya que el name se lo cambiamos para poder obtener el nombre completo de la persona a eliminar y por esta razon ponemos es mas bie la clase boton_accion*/
+img[class="boton_accion"]{
+  height: 40px;
+  width: 40px;
+  padding: 7px;
+}
+
+img[name="boton_accion_editar"]{
+  height: 39px;
+  width: 39px;
+  padding: 7px;
+}
+
+img[name="x_redonda"]{
+  display: flex;
+  height: 33px;
+  width: 33px;
+  position: relative;
+  top: -36px;
+  left: 3px;
+  opacity: 0;
+}
+
+img[name="chulo_tuerca"]{
+  display: flex;
+  height: 20px;
+  width: 20px;
+  position: relative;
+  top: -28px;
+  left: 17px;
+  opacity: 0;
+}
+
+/*ESTILOS PARA TODAS LAS IMAGENES DENTRO DE LOS A HREF DE LAS ACCIONES*/
+
+/*BOTON DE CREAR PERSONA*/
+a[class="boton_accion_crear_persona"]{
+  background-color: rgb(44, 105, 224);
+  display: inline-block;
+  position: static;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+}
+/*BOTON DE CREAR PERSONAS*/
+
+/*ESTILOS PARA EL A HREF DE ACCION  CREAR*/
+a[class="boton_accion_crear_aplicacion"]{
+  background-color: rgb(88, 198, 43);
+  display: inline-block;
+  position: static;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+/*ESTILOS PARA EL A HREF DE ACCION  CREAR*/
+
+/*ESTOS SON LOS ESTILOS PARA EL A HREF DE ACCION ELIMINAR APLICACION PERSONA*/
+a[class="boton_accion_eliminar_aplicacion"]{
+  background-color: rgb(251, 117, 20);
+  display: inline-block;
+  position: static;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+/*ESTOS SON LOS ESTILOS PARA EL A HREF DE ACCION ELIMINAR APLICACION PERSONA*/
+
+
+/*ESTILOS PARA EL A HREF DE ACCION ELIMINAR*/
+a[class="boton_accion_eliminar"]{
+  background-color: rgb(251, 117, 20);
+  display: inline-block;
+  position: static;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+}
+/*ESTILOS PARA EL A HREF DE ACCION ELIMINAR*/
+
+
+/*ESTILOS PARA EL A HREF DE ACCION EDITAR*/
+a[class="boton_accion_editar"]{
+  background-color: rgb(51, 124, 154);
+  display: inline-block;
+  position: static;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+}
+/*ESTILOS PARA EL A HREF DE ACCION EDITAR*/
+
+
+
+/*ANIMACIONES DE BOTON DE ACCION CREAR APLICACION*/
+a[class="boton_accion_crear_aplicacion"]:hover{
+  background-color: rgb(235, 127, 252);
+  box-shadow: 0px 0px 3px 3px black;
+  transition: 1s;
+}
+a[class="boton_accion_crear_aplicacion"]:hover > img[name="boton_accion"]{
+  animation: muevete_crear_aplicacion 3s infinite;
+  animation-direction: normal;
+}
+
+@keyframes muevete_crear_aplicacion {
+  100%{transform: rotate(360deg);}
+}
+
+
+a[class="boton_accion_crear_aplicacion"]:hover > img[name="chulo_tuerca"]{
+  animation: muevete_crear_aplicacion_2 1s infinite;
+  animation-direction: normal;
+}
+
+@keyframes muevete_crear_aplicacion_2 {
+  0%{opacity: 0;}
+  100%{opacity: 1;}
+}
+
+
+/*ANIMACIONES DE BOTON DE ACCION CREAR APLICACION*/
+
+
+/*ANIMACIONES DE BOTON DE ACCION ELIMINAR APLICACION*/
+a[class="boton_accion_eliminar_aplicacion"]:hover{
+  background-color: rgb(247, 193, 54);
+  box-shadow: 0px 0px 3px 3px black;
+  transition: 1s;
+}
+a[class="boton_accion_eliminar_aplicacion"]:hover > img[name="boton_accion"]{
+  animation: muevete_eliminar_aplicacion 3s infinite;
+  animation-direction: normal;
+}
+
+@keyframes muevete_eliminar_aplicacion {
+  100%{transform: rotate(360deg);}
+}
+
+a[class="boton_accion_eliminar_aplicacion"]:hover > img[name="x_redonda"]{
+  animation: muevete_eliminar_aplicacion_2 1s infinite;
+  animation-direction: normal;
+}
+
+@keyframes muevete_eliminar_aplicacion_2 {
+  0%{opacity: 0;}
+  100%{opacity: 1;}
+}
+
+
+/*ANIMACIONES DE BOTON DE ACCION ELIMINAR APLICACION*/
+
+
+/*ANIMACIONES DE BOTON DE ACCION CREAR PERSONAS*/
+a[class="boton_accion_crear_persona"]:hover{
+  background-color: rgb(1, 157, 21);
+  box-shadow: 0px 0px 3px 3px black;
+  transition: 1s;
+}
+a[class="boton_accion_crear_persona"]:hover > img{
+  animation: muevete_crear_persona 0.5s infinite;
+  animation-direction: alternate;
+}
+
+@keyframes muevete_crear_persona {
+  0%{transform: scale(1);}
+  100%{transform: scale(1.2);}
+}
+/*ANIMACIONES DE BOTON DE ACCION CREAR PERSONAS*/
+
+
+
+
+/*ANIMACION DE BOTON DE ACCION ELIMINAR*/
+a[class="boton_accion_eliminar"]:hover{
+  background-color: rgb(251, 45, 45);
+  box-shadow: 0px 0px 3px 3px black;
+  transition: 1s;
+}
+a[class="boton_accion_eliminar"]:hover > img{
+  animation: muevete_eliminar 0.4s infinite;
+}
+
+@keyframes muevete_eliminar {
+  0%{transform: rotate(0deg);}
+  50%{transform: rotate(10deg);}
+  100%{transform: rotate(-10deg);}
+}
+/*ANIMACION DE BOTON DE ACCION ELIMINAR*/
+
+
+/*ANIMACION DE BOTON DE ACCION EDITAR*/
+a[class="boton_accion_editar"]:hover{
+  background-color: rgb(50, 81, 193);
+  box-shadow: 0px 0px 3px 3px black;
+  transition: 1s;
+}
+a[class="boton_accion_editar"]:hover > img{
+  animation: muevete_editar 0.2s infinite;
+  animation-direction: alternate;
+}
+
+@keyframes muevete_editar {
+  0%{transform: rotate(-35deg);}
+  100%{transform: rotate(-60deg);}
+}
+/*ANIMACION DE BOTON DE ACCION EDITAR*/
+
+
+
+/*BOTON DE RETROCERDER*/
+.retroceder{
+  width: 15%;
+  height: 85%;
+}
+.retroceder:hover{
+  animation: da_vueltas_retroceder 1s infinite;
+}
+
+@keyframes da_vueltas_retroceder {
+  0%{transform: rotate(0deg);}
+  100%{transform: rotate(360deg);}
+}
+/*BOTON DE RETROCERDER*/
+
+
+
+
+/*BOTON DE EXPORTAR A EXCEL*/
+a[class="boton_accion_exportar_excel"]{
+  background-color: rgb(1, 157, 21);
+  display: inline-block;
+  position: static;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+}
+/*BOTON DE EXPORTAR A EXCEL*/
+
+/*ANIMACIONES DE BOTON DE ACCION EXPORTAR A EXCEL*/
+a[class="boton_accion_exportar_excel"]:hover{
+  background-color: rgb(166, 186, 247);
+  box-shadow: 0px 0px 3px 3px black;
+  transition: 1s;
+}
+a[class="boton_accion_exportar_excel"]:hover > img{
+  animation: muevete_exportar_excel 0.5s infinite;
+  animation-direction: alternate;
+}
+
+@keyframes muevete_exportar_excel {
+  0%{transform: scale(1);}
+  100%{transform: scale(1.2);}
+}
+/*ANIMACIONES DE BOTON DE ACCION EXPORTAR A EXCEL*/

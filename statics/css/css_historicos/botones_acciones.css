@@ -1,0 +1,55 @@
+.th_acciones{
+  padding: 100px;
+}
+
+
+/*BOTON DE RETROCERDER*/
+.retroceder{
+  width: 25%;
+  height: 85%;
+  position: relative;
+}
+.retroceder:hover{
+  animation: da_vueltas_retroceder 1s infinite;
+}
+
+@keyframes da_vueltas_retroceder {
+  0%{transform: rotate(0deg);}
+  100%{transform: rotate(360deg);}
+}
+/*BOTON DE RETROCERDER*/
+
+
+img[name="boton_accion"]{
+  height: 40px;
+  width: 40px;
+  padding: 7px;
+}
+
+
+/*BOTON DE EXPORTAR A EXCEL*/
+a[class="boton_accion_exportar_excel"]{
+  background-color: rgb(1, 157, 21);
+  display: inline-block;
+  position: static;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+}
+/*BOTON DE EXPORTAR A EXCEL*/
+
+/*ANIMACIONES DE BOTON DE ACCION EXPORTAR A EXCEL*/
+a[class="boton_accion_exportar_excel"]:hover{
+  background-color: rgb(166, 186, 247);
+  transition: 1s;
+}
+a[class="boton_accion_exportar_excel"]:hover > img{
+  animation: muevete_exportar_excel 0.5s infinite;
+  animation-direction: alternate;
+}
+
+@keyframes muevete_exportar_excel {
+  0%{transform: scale(1);}
+  100%{transform: scale(1.2);}
+}
+/*ANIMACIONES DE BOTON DE ACCION EXPORTAR A EXCEL*/

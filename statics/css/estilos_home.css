@@ -1,0 +1,23 @@
+
+.logo{
+  height: 90px;
+  width: 90px;
+  position: relative;
+  display: inline;
+  vertical-align: middle;
+  padding: 1%;
+}
+
+.div_logo{
+  background-color: rgba(94, 166, 241, 0.5);
+}
+
+.texto_logo{
+  font-family: fantasy;
+  color: rgb(0, 141, 255);
+}
+
+.usuario{
+  font-family: fantasy;
+  color: rgb(0, 141, 255);
+}

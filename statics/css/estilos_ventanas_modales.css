@@ -1,0 +1,213 @@
+/*AQUI LA VENTANA MODAL DE CREAR PERSONA APLICACION*/
+
+.ventana_modal_crear_persona_aplicacion{
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	opacity: 0;
+	position: fixed;
+	background: rgba(45, 172, 185, 0.7);
+	z-index: 9999;
+	transition: opacity 400ms ease-in;
+	pointer-events: none;
+
+}
+
+.ventana_modal_crear_persona_aplicacion:target{
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.ventana_modal_crear_persona_aplicacion > div{
+	width: 400px;
+	position: relative;
+	margin: 10% auto;
+	padding: 5px 20px 13px 20px;
+	border-radius: 10px;
+	background: rgba(37, 209, 167, 1);
+	box-shadow: 0px 0px 3px 3px black;
+
+}
+
+.ventana_modal_crear_persona_aplicacion > div > a{
+	position: relative;
+	top: -10px;
+	left: 100%;
+}
+/*AQUI LA VENTANA MODAL DE CREAR PERSONA APLICACION*/
+
+/*AQUI LA VENTANA MODAL DE ELIMINAR PERSONA APLICACION*/
+.ventana_modal_eliminar_persona_aplicacion{
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	opacity: 0;
+	position: fixed;
+	background: rgba(45, 172, 185, 0.7);
+	z-index: 9999;
+	transition: opacity 400ms ease-in;
+	pointer-events: none;
+
+}
+
+.ventana_modal_eliminar_persona_aplicacion:target{
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.ventana_modal_eliminar_persona_aplicacion > div{
+	width: 400px;
+	position: relative;
+	margin: 10% auto;
+	padding: 5px 20px 13px 20px;
+	border-radius: 10px;
+	background: rgba(37, 209, 167, 1);
+	box-shadow: 0px 0px 3px 3px black;
+
+}
+
+.ventana_modal_eliminar_persona_aplicacion > div > a{
+	position: relative;
+	top: -10px;
+	left: 100%;
+}
+/*AQUI LA VENTANA MODAL DE ELIMINAR PERSONA APLICACION*/
+
+
+
+/*AQUI LA VENTANA MODAL DE CREAR PERSONAS*/
+.ventana_modal_crear_persona{
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	opacity: 0;
+	position: fixed;
+	background: rgba(45, 172, 185, 0.7);
+	z-index: 9999;
+	transition: opacity 400ms ease-in;
+	pointer-events: none;
+
+}
+
+.ventana_modal_crear_persona:target{
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.ventana_modal_crear_persona > div{
+	width: 400px;
+	position: relative;
+	margin: 10% auto;
+	padding: 5px 20px 13px 20px;
+	border-radius: 10px;
+	background: rgba(37, 209, 167, 1);
+	box-shadow: 0px 0px 3px 3px black;
+
+}
+
+.ventana_modal_crear_persona > div > a{
+	position: relative;
+	top: -10px;
+	left: 100%;
+}
+/*AQUI LA VENTANA MODAL DE CREAR PERSONAS*/
+
+
+
+/*AQUI LA VENTANA MODAL DE ELIMINAR PERSONAS*/
+.ventana_modal_eliminar_persona{
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	opacity: 0;
+	position: fixed;
+	background: rgba(45, 172, 185, 0.7);
+	z-index: 9999;
+	transition: opacity 400ms ease-in;
+	pointer-events: none;
+
+}
+
+.ventana_modal_eliminar_persona:target{
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.ventana_modal_eliminar_persona > div{
+	width: 400px;
+	position: relative;
+	margin: 10% auto;
+	padding: 5px 20px 13px 20px;
+	border-radius: 10px;
+	background: rgba(37, 209, 167, 1);
+	box-shadow: 0px 0px 3px 3px black;
+
+}
+
+.ventana_modal_eliminar_persona > div > a{
+	position: relative;
+	top: -10px;
+	left: 100%;
+}
+/*AQUI LA VENTANA MODAL DE ELIMINAR PERSONAS*/
+
+
+/*AQUI LA VENTANA MODAL DE EDITAR PERSONAS*/
+.ventana_modal_editar_persona{
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	opacity: 0;
+	position: fixed;
+	background: rgba(45, 172, 185, 0.7);
+	z-index: 9999;
+	transition: opacity 400ms ease-in;
+	pointer-events: none;
+
+}
+
+.ventana_modal_editar_persona:target{
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.ventana_modal_editar_persona > div{
+	width: 400px;
+	position: relative;
+	margin: 10% auto;
+	padding: 5px 20px 13px 20px;
+	border-radius: 10px;
+	background: rgba(37, 209, 167, 1);
+	box-shadow: 0px 0px 3px 3px black;
+
+}
+
+.ventana_modal_editar_persona > div > a{
+	position: relative;
+	top: -10px;
+	left: 100%;
+}
+/*AQUI LA VENTANA MODAL DE EDITAR PERSONAS*/
+
+
+
+
+/*aqui vamos a esconder a las ventanas que no necesitamos a la hora de la adicion de una nueva aplicacion en el formulario de persona*/
+.nombre_completo_de_adicion_aplicacion{
+	display: none;
+}
+
+.cargo_de_adicion_aplicacion{
+	display: none;
+}
+
+.ubicacion_de_adicion_aplicacion{
+	display: none;
+}
+
+/*aqui vamos a esconder a las ventanas que no necesitamos a la hora de la adicion de una nueva aplicacion en el formulario de persona*/

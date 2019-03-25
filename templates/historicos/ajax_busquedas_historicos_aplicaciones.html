@@ -1,0 +1,19 @@
+{% for persona in personas %}
+  <tr class="clearfix visible-md-block">
+    <td class="col-md-2">
+      {{persona.hora}}
+    </td>
+    <td class="col-md-4">
+      {{persona.persona_relacionada}}
+    </td>
+    <td class="col-md-2">
+      {{persona.aplicacion_relacionada}}
+    </td>
+    <td class="col-md-2">
+      {{persona.usuario}}
+    </td>
+    <td class="col-md-2">
+      {{persona.ticket}}
+    </td>
+  </tr>
+{% endfor %}

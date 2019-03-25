@@ -1,0 +1,16 @@
+img[class="boton_filtro_ordenado"]:hover{
+  cursor: pointer;
+}
+th > img {
+  width: 30px;
+  height: 30px;
+}
+
+img[class="quitar_filtro"]:hover{
+  cursor: pointer;
+}
+
+img[class="quitar_filtro"]{
+  width: 30px;
+  height: 30px;
+}

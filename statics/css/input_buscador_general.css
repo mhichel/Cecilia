@@ -1,0 +1,9 @@
+.buscador_general{
+  padding: 1%;
+  font-size: 110%;
+  transition: 2s;
+}
+
+.buscador_general:hover{
+  background: rgb(178, 222, 241);
+}

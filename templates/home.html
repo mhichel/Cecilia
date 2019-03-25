@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block css %}
+<link rel="stylesheet" href={% static "css/estilos_home.css" %}>
+{% endblock %}
+{% block title %}<title>Cecilia</title>{% endblock %}
+{% block content %}
+<header>
+  <div class="container-fluid div_logo">
+    <h1 class="texto_logo">Gestora de entidades Cecilia<img src={% static "img/logo.gif" %} alt="logo" class="logo"></h1>
+    <h3 class="usuario">Bienvenid@ {{usuario.META.USERNAME}}!</h3>
+  </div>
+</header>
+
+<div class="container-fluid opciones">
+  <section class="main row">
+    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <a href={% url 'listar_personas' %} class="btn btn-primary">Listado general</a>
+    </article>
+    <br>
+    <br>
+    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <a href={% url 'listar_historico_personas_creadas' %} class="btn btn-primary">Historico de creaciones de personas</a>
+    </article>
+    <br>
+    <br>
+    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <a href={% url 'listar_historico_personas_eliminadas' %} class="btn btn-primary">Historico de eliminaciones de personas</a>
+    </article>
+    <br>
+    <br>
+    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <a href={% url 'listar_historico_aplicaciones_creadas' %} class="btn btn-primary">Historico de creacion de aplicaciones</a>
+    </article>
+    <br>
+    <br>
+    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <a href={% url 'listar_historico_aplicaciones_eliminadas' %} class="btn btn-primary">Historico de eliminacion de aplicaciones</a>
+    </article>
+    <br>
+    <br>
+  </section>
+</div>
+
+
+
+
+<br><br><br><br>
+<p>{{usuario.META}}</p>
+<p>{{usuario.META.REMOTE_USER}}</p>
+<button type="button" name="button" class="btn btn-primary">boton</button>
+{% endblock %}

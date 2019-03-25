@@ -1,0 +1,104 @@
+.tabla_entera{
+  position: relative;
+  left: -0.3%;
+}
+
+.tabla_historico {
+  width: 90%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  color: white;
+  font-family: monospace;
+  font-size: 120%;
+}
+
+.tabla_historico thead tr {
+  display: block;
+  position: relative;
+  width: 101%;
+}
+
+
+.tabla_historico tbody {
+  display: block;
+  overflow: auto;
+  width: 101%;
+  height: 700px;
+}
+
+
+
+table#tabla_historico{
+	font-family: sans-serif;
+  color: white;
+  font-size: 120%;
+}
+
+th{
+	background-color: rgba(64, 66, 69, 1);
+	font-size: 1.1em;
+}
+
+td ,tr, th {
+	text-align: justify;
+	vertical-align: bottom;
+}
+td{
+  padding: 15px 0px;
+}
+
+
+table.tabla_historico tbody tr:nth-child(odd){background-color: rgba(84,89,96,1);}
+table.tabla_historico tbody tr:nth-child(even){background-color: rgba(117,117,117,1);}
+
+table#tabla_historico select{
+	width: 100%;
+	background-color: rgba(61,61,61,1);
+	font-family: sans-serif;
+	color: white;
+	font-size: 1.1em;
+}
+table#tabla_historico input{
+  width: 100%;
+	background-color: rgba(61,61,61,1);
+	font-family: sans-serif;
+	color: white;
+	font-size: 1.1em;
+}
+
+
+
+
+
+
+
+/*PRUEBAS DE TABLA FIJA*/
+.tabla_historico tbody tr {
+  display: flex;
+  position: relative
+}
+
+.tabla_historico tbody td{
+  width: 100%;
+}
+
+
+
+.tabla_historico thead tr {
+  display: flex;
+  position: relative
+}
+
+.tabla_historico thead th{
+  width: 100%;
+}
+
+tbody tr:hover {
+      background: rgb(255, 0, 0);
+      color: rgb(75, 191, 255);
+  }
+
+
+#titulo_tabla_personas_creadas{
+  text-align: center;
+}
