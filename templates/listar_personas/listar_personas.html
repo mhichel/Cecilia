@@ -24,14 +24,14 @@
     {% if usuario.META.USERNAME %}
       <h3 class="usuario">Bienvenid@ {{usuario.META.USERNAME}}!</h3>
     {% else %}
-      <h3 class="usuario">Listado de personas</h3>
+      <h3 class="usuario" data-toggle="tooltip" title="Titulo de la seccion">Listado de personas</h3>
     {% endif %}
   </div>
 </header>
 
 <div class="tabla_entera">
   <div class="container-fluid">
-    <input type="search" class="buscador_general form-control" id="buscador_general" placeholder="Busqueda general" data-toggle="tooltip" title="Buscador general">
+    <input type="search" class="buscador_general form-control" id="buscador_general" placeholder="Busqueda general" data-toggle="tooltip" title="Buscador general: Aqui podras buscar las personas de la tabla, podras colocar cualquier parametro de busqueda, ya que busca en todos los campos">
   </div>
   <div class="container-fluid">
     <div class="notificacion" id="notificacion_1">
@@ -46,15 +46,15 @@
         <table id="lista_gestora_entidades" class="table table-striped table-bordered table-hover table-fixed">
           <thead id="cabeza_tabla_listado">
             <tr class="bg-info clearfix visible-md-block">
-              <th class="col-md-2">Ubicacion<img src={% static "img/filtro_de_ordenar.gif" %} alt="filtro_de_ordenado_ubicacion" class="boton_filtro_ordenado" id="order_by_ubicacion" name="ubicacion"></th>
-              <th class="col-md-2">Nombre<img src={% static "img/filtro_de_ordenar.gif" %} alt="filtro_de_ordenado_nombre" class="boton_filtro_ordenado" id="order_by_nombre" name="nombre_completo"></th>
-              <th class="col-md-2">Cargo<img src={% static "img/filtro_de_ordenar.gif" %} alt="filtro_de_ordenado_cargo" class="boton_filtro_ordenado" id="order_by_cargo" name="cargo"></th>
-              <th class="col-md-4">Aplicaciones<img src={% static "img/filtro_de_ordenar.gif" %} alt="filtro_de_ordenado_aplicaciones" class="boton_filtro_ordenado" id="order_by_aplicaciones" name="aplicaciones"></th>
-              <th class="col-md-2">Acciones</th>
+              <th class="col-md-2" data-toggle="tooltip" title="Este es el campo de ubicacion actual de la persona">Ubicacion<img src={% static "img/filtro_de_ordenar.gif" %} alt="filtro_de_ordenado_ubicacion" class="boton_filtro_ordenado" id="order_by_ubicacion" name="ubicacion" data-toggle="tooltip" title="Este es el filtro de ordenado ascendente o descendente"></th>
+              <th class="col-md-2" data-toggle="tooltip" title="Este es el campo del nombre completo de la persona">Nombre<img src={% static "img/filtro_de_ordenar.gif" %} alt="filtro_de_ordenado_nombre" class="boton_filtro_ordenado" id="order_by_nombre" name="nombre_completo" data-toggle="tooltip" title="Este es el filtro de ordenado ascendente o descendente"></th>
+              <th class="col-md-2" data-toggle="tooltip" title="Este es el campo del cargo en la empresa de la persona">Cargo<img src={% static "img/filtro_de_ordenar.gif" %} alt="filtro_de_ordenado_cargo" class="boton_filtro_ordenado" id="order_by_cargo" name="cargo" data-toggle="tooltip" title="Este es el filtro de ordenado ascendente o descendente"></th>
+              <th class="col-md-4" data-toggle="tooltip" title="Este es el campo de las aplicaciones de las que tiene dominio actualmente la persona">Aplicaciones<img src={% static "img/filtro_de_ordenar.gif" %} alt="filtro_de_ordenado_aplicaciones" class="boton_filtro_ordenado" id="order_by_aplicaciones" name="aplicaciones" data-toggle="tooltip" title="Este es el filtro de ordenado acendente o descendente"></th>
+              <th class="col-md-2" data-toggle="tooltip" title="En este campo en la parte inferior, se mostraran las acciones que se pueden ejecutar, como exportar a Excel o volver hacia atras, etcetera">Acciones</th>
             </tr>
             <tr class="clearfix visible-md-block">
               <th class="col-md-2">
-                <select class="bodegas form-control" id="bodegas">
+                <select class="bodegas form-control" id="bodegas" data-toggle="tooltip" title="En este campo, podras escoger si quieres ver solamente las personas que tengan cierta ubicacion">
                   <option value="all">Todos</option>
                   {% for bodega in bodegas %}
                     <option value="{{bodega.id}}">{{bodega.ubicacion}}</option>
@@ -62,10 +62,10 @@
                 </select>
               </th>
               <th class="col-md-2">
-                <input type="text" id="nombre_completo" placeholder="Nombre" class="bodegas form-control">
+                <input type="text" id="nombre_completo" placeholder="Nombre" class="bodegas form-control" data-toggle="tootip" title="En este campo podras buscar por el nombre de la persona, para poder encontrar la que quieres">
               </th>
               <th class="col-md-2">
-                <select class="cargos bodegas form-control" id="cargos">
+                <select class="cargos bodegas form-control" id="cargos" data-toggle="tooltip" title="En este campo podras escoger si quieres ver las personas que tengan cierto cargo en la empresa">
                   <option value="all">Todos</option>
                   {% for cargo in cargos %}
                     <option value="{{cargo.id}}">{{cargo.nombre_cargo}}</option>
@@ -73,7 +73,7 @@
                 </select>
               </th>
               <th class="col-md-4">
-                <select class="aplicaciones bodegas form-control" id="aplicaciones">
+                <select class="aplicaciones bodegas form-control" id="aplicaciones" data-toggle="tooltip" title="En este campo podras escoger si quieres ver solamente las personas que manejen ciertas aplicaciones">
                   <option value="all">Todos</option>
                   {% for aplicacion in aplicaciones %}
                     <option value="{{aplicacion.id}}">{{aplicacion.nombre_aplicacion}}</option>
@@ -81,10 +81,10 @@
                 </select>
               </th>
               <th class="col-md-2">
-                <img src={% static "img/quitar_filtro.gif" %} alt="quitar_filtro" class="quitar_filtro" id="quitar_filtro">
-                <a href="#div_crear_persona_nueva" class="boton_accion_crear_persona" id=boton_de_crear_persona data-toggle="modal"><img src={% static "img/botones/crear_blanco.gif" %} alt="crear_persona" name="boton_accion" id=boton_de_crear_persona></a>
-                <a href="#" class="boton_accion_exportar_excel" id="exportar_excel"><img src={% static "img/botones/exportar_excel.gif" %} alt="exportar_a_excel" name="boton_accion" id="exportar_excel" class="boton_accion_exportar_excel"></a>
-                <a href={% url 'home' %}><img src="{% static "img/botones/retroceder.gif" %}" alt="retroceder" class="retroceder"></a>
+                <img src={% static "img/quitar_filtro.gif" %} alt="quitar_filtro" class="quitar_filtro" id="quitar_filtro" data-toggle="tooltip" title="Con este boton podras quitar los filtros de ordenado ascendente o descendente">
+                <a href="#div_crear_persona_nueva" class="boton_accion_crear_persona" id=boton_de_crear_persona data-toggle="modal" title="Para crear una persona nueva"><img src={% static "img/botones/crear_blanco.gif" %} alt="crear_persona" name="boton_accion" id=boton_de_crear_persona></a>
+                <a href="#" class="boton_accion_exportar_excel" id="exportar_excel" data-toggle="tooltip" title="Para exportar a excel"><img src={% static "img/botones/exportar_excel.gif" %} alt="exportar_a_excel" name="boton_accion" id="exportar_excel" class="boton_accion_exportar_excel"></a>
+                <a href={% url 'home' %} data-toggle="tooltip" title="Para retroceder de pagina"><img src="{% static "img/botones/retroceder.gif" %}" alt="retroceder" class="retroceder"></a>
               </th>
             </tr>
           </thead>
@@ -97,15 +97,15 @@
                 <td class="col-md-4">
                   {% for usuario in persona.usuario_set.all %}
                     {% for aplicacion in usuario.aplicacion_relacionada.all %}
-                      <li>{{aplicacion}} ({{usuario.usuario}})({{usuario.ticket}})</li>
+                      <li><span data-toggle="tooltip" title="Aplicacion">{{aplicacion}}</span><span data-toggle="tooltip" title="Usuario de la aplicacion">({{usuario.usuario}})</span><span data-toggle="tooltip" title="Ticket de creacion del usuario">({{usuario.ticket}})</span></li>
                     {% endfor %}
                   {% endfor %}
                 </td>
                 <td class="col-md-2">
-                  <a href="#div_editar_persona" class="boton_accion_editar" id={{persona.id}} data-toggle="modal"><img src={% static "img/botones/editar_blanco.gif" %} alt="editar_persona" name="boton_accion_editar" id={{persona.id}}></a>
-                  <a href="#div_eliminar_persona" class="boton_accion_eliminar" id={{persona.id}} name={{persona.nombre_completo}} data-toggle="modal"><img src={% static "img/botones/cesta_blanca.gif" %} alt="eliminar" name="{{persona.nombre_completo}}" id={{persona.id}} class="boton_accion"></a>
-                  <a href="#div_crear_persona" class="boton_accion_crear_aplicacion" id={{persona.id}} data-toggle="modal"><img src={% static "img/botones/crear_blanco_persona.gif" %} alt="crear_aplicacion" name="boton_accion" id={{persona.id}}><img src="{% static "img/botones/chulo_tuerca_1.gif" %}" alt="chula_crear_aplicacion" name="chulo_tuerca" id={{persona.id}}></a>
-                  <a href="#div_eliminar_aplicacion_persona" class="boton_accion_eliminar_aplicacion" id={{persona.id}} data-toggle="modal"><img src={% static "img/botones/crear_blanco_persona.gif" %} alt="crear_aplicacion" name="boton_accion" id={{persona.id}}><img src={% static "img/botones/x_redonda_1.gif" %} name="x_redonda" id={{persona.id}}></a>
+                  <a href="#div_editar_persona" class="boton_accion_editar" id={{persona.id}} data-toggle="modal" title="Editar datos de la persona"><img src={% static "img/botones/editar_blanco.gif" %} alt="editar_persona" name="boton_accion_editar" id={{persona.id}}></a>
+                  <a href="#div_eliminar_persona" class="boton_accion_eliminar" id={{persona.id}} name={{persona.nombre_completo}} data-toggle="modal" title="Eliminar persona"><img src={% static "img/botones/cesta_blanca.gif" %} alt="eliminar" name="{{persona.nombre_completo}}" id={{persona.id}} class="boton_accion"></a>
+                  <a href="#div_crear_persona" class="boton_accion_crear_aplicacion" id={{persona.id}} data-toggle="modal" title="Adicionar una aplicacion a la persona"><img src={% static "img/botones/crear_blanco_persona.gif" %} alt="crear_aplicacion" name="boton_accion" id={{persona.id}}><img src="{% static "img/botones/chulo_tuerca_1.gif" %}" alt="chula_crear_aplicacion" name="chulo_tuerca" id={{persona.id}}></a>
+                  <a href="#div_eliminar_aplicacion_persona" class="boton_accion_eliminar_aplicacion" id={{persona.id}} data-toggle="modal" title="Eliminar una aplicacion a la persona"><img src={% static "img/botones/crear_blanco_persona.gif" %} alt="crear_aplicacion" name="boton_accion" id={{persona.id}}><img src={% static "img/botones/x_redonda_1.gif" %} name="x_redonda" id={{persona.id}}></a>
                 </td>
               </tr>
             {% endfor %}
@@ -124,7 +124,7 @@
 
 <!--INICIO VENTANA MODAL DE CREACION DE PERSONA APLICACION-->
 <div class="modal fade" id="div_crear_persona">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Formulario de adicion de aplicaciones</h4>
@@ -201,14 +201,13 @@
 
 <!--INICIO VENTANA MODAL DE ELIMINACION DE PERSONA APLICACION-->
 <div class="modal fade" id="div_eliminar_aplicacion_persona">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Formulario de eliminacion aplicaciones</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
       </div>
       <div class="modal-body">
-        <a href="#" class="tooltip-test" title="ascascas" data-container="#exampleModalPopovers" data-original-title="Tooltip">This link</a>
         <div id="div_formulario_eliminacion_persona_aplicacion">
 
         </div>

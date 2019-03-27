@@ -19,42 +19,42 @@
     {% if usuario.META.USERNAME %}
       <h3 class="usuario">Bienvenid@ {{usuario.META.USERNAME}}!</h3>
     {% else %}
-      <h3 class="usuario">Registro de aplicaciones eliminadas</h3>
+      <h3 class="usuario" data-toggle="tooltip" title="Titulo">Registro de aplicaciones eliminadas</h3>
     {% endif %}
   </div>
 </header>
+<div class="container-fluid">
+  <input type="search" class="boton_busqueda_general_historico_aplicaciones_eliminadas form-control" id="boton_busqueda_general_historico_aplicaciones_eliminadas" placeholder="Busqueda general" data-toggle="tooltip" title="Aqui podras buscar en la tahla de historicos por cualquier parametro, ya que se busca por cualquier campo de la misma">
+</div>
 <br>
-  <div class="container-fluid">
-    Busca aqui:
-    <input type="search" class="boton_busqueda_general_historico_aplicaciones_eliminadas" id="boton_busqueda_general_historico_aplicaciones_eliminadas" placeholder="Busqueda general">
-  </div>
-  <br>
-  <div class="container-fluid">
-    <fieldset id="formulario_busqueda_por_fecha">
-      <legend>Buscador por fecha</legend>
-      <form method="get" id="fechas_inicio_fin_historico_aplicaciones_eliminadas">
-        Inicio:
-        <input type="date" id="fecha_inicio">
-        Fin:
-        <input type="date" id="fecha_fin">
-        <input type="submit" value="Buscar" class="btn btn-info">
-        <input type="button" id="limpiar_fechas_historico_aplicaciones_eliminadas" value="Limpiar" class="btn btn-warning">
-      </form>
-    </fieldset>
-  </div>
-
-  <br>
-  <br>
+<div class="container-fluid">
+  <fieldset id="formulario_busqueda_por_fecha">
+    <legend class="bg-primary legend-buscador-por-fecha" data-toggle="tooltip" title="En este formulario podras buscar por fechas">Buscador por fecha</legend>
+    <form method="get" id="fechas_inicio_fin_historico_aplicaciones_eliminadas" class="form-inline" data-toggle="tooltip" title="Formulario de busqueda por fechas">
+      <div class="form-group">
+        <div class="input-group">
+          <a href="#fecha_inicio" class="btn btn-primary" data-toggle="tooltip" title="Si presionas aqui, podras colocar la fecha inicio con el teclado">Inicio</a>
+          <input type="date" id="fecha_inicio" class="form-control" data-toggle="tooltip" title="Parametro de fecha inicio">
+        </div>
+      </div>
+      <br><br>
+      <a href="#fecha_fin" class="btn btn-primary" data-toggle="tooltip" title="Si presionas aqui, podras colocar la fecha fin con el teclado">Fin</a>
+      <input type="date" id="fecha_fin" class="form-control" data-toggle="tooltip" title="Parametro de fecha fin">
+      <input type="submit" value="Buscar" class="btn btn-info" data-toggle="tooltip" title="Si presionas aqui, buscara los registros con la fecha parametrisadas">
+      <input type="button" id="limpiar_fechas_historico_aplicaciones_eliminadas" value="Limpiar" class="btn btn-warning" data-toggle="tooltip" title="Si presionas aqui, limpiara las fechas que estan en este momento para que quede limpio el formulario">
+    </form>
+  </fieldset>
+</div>
 
 <div class="table-responsive">
   <div class="tabla_entera container-fluid">
     <table class="tabla_historico table table-striped table-bordered table-hover table-fixed">
       <thead>
-        <tr class="bg-info clearfix visible-md-block tr_principal"><th colspan="4" id="titulo_tabla_aplicaciones_eliminadas" class="col-md-11">Registro de aplicaciones eliminadas</th><th class="col-md-1 th_acciones"><a href="#" class="boton_accion_exportar_excel" id="exportar_excel"><img src={% static "img/botones/exportar_excel.gif" %} alt="exportar_a_excel" name="boton_accion" id="exportar_excel_historico_aplicaciones_eliminadas" class="boton_accion_exportar_excel"></a><a href={% url 'home' %}><img src="{% static "img/botones/retroceder.gif" %}" alt="retroceder" class="retroceder"></a></th></tr>
+        <tr class="bg-info clearfix visible-md-block tr_principal"><th colspan="4" id="titulo_tabla_aplicaciones_eliminadas" class="col-md-11">Registro de aplicaciones eliminadas</th><th class="col-md-1 th_acciones"><a href="#" class="boton_accion_exportar_excel" id="exportar_excel"><img src={% static "img/botones/exportar_excel.gif" %} alt="exportar_a_excel" name="boton_accion" id="exportar_excel_historico_aplicaciones_eliminadas" class="boton_accion_exportar_excel" data-toggle="tooltip" title="Para exportar a excel"></a><a href={% url 'home' %}><img src="{% static "img/botones/retroceder.gif" %}" alt="retroceder" class="retroceder" data-toggle="tooltip" title="Para retroceder a la pagina anterior"></a></th></tr>
         <th class="col-md-2">Hora de eliminacion</th>
-        <th class="col-md-4">Persona</th>
+        <th class="col-md-3">Persona</th>
         <th class="col-md-2">Aplicacion</th>
-        <th class="col-md-2">Usuario</th>
+        <th class="col-md-3">Usuario</th>
         <th class="col-md-2">Ticket eliminacion</th>
       </thead>
       <tbody id="tbody_historico_aplicaciones_eliminadas">
@@ -63,13 +63,13 @@
               <td class="col-md-2">
                 {{persona.hora}}
               </td>
-              <td class="col-md-4">
+              <td class="col-md-3">
                 {{persona.persona_relacionada}}
               </td>
               <td class="col-md-2">
                 {{persona.aplicacion_relacionada}}
               </td>
-              <td class="col-md-2">
+              <td class="col-md-3">
                 {{persona.usuario}}
               </td>
               <td class="col-md-2">

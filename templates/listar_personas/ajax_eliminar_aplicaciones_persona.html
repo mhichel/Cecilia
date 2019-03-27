@@ -6,8 +6,8 @@
       {{form.aplicaciones}}
     </div>
     {{form.nombre_completo}}
-    <button type="submit" id="boton_de_envio_de_eliminacion_aplicacion_persona" class="btn btn-danger btn-block">Eliminar aplicacion</button>
-    <button type="button" name="button" class="btn btn-warning btn-block" data-dismiss="modal">Cerrar</button>
+    <button type="submit" id="boton_de_envio_de_eliminacion_aplicacion_persona" class="btn btn-primary btn-block">Eliminar aplicacion</button>
+    <button type="button" name="button" class="btn btn-danger btn-block" data-dismiss="modal">Cerrar</button>
   </form>
 {% else %}
   <tr id=tres{{form.id}} class="clearfix visible-md-block">
@@ -17,15 +17,15 @@
     <td class="col-md-4">
       {% for usuario in form.usuario_set.all %}
         {% for aplicacion in usuario.aplicacion_relacionada.all %}
-          <li>{{aplicacion}} ({{usuario.usuario}})({{usuario.ticket}})</li>
+          <li><span data-toggle="tooltip" title="Aplicacion">{{aplicacion}}</span><span data-toggle="tooltip" title="Usuario de la aplicacion">({{usuario.usuario}})</span><span data-toggle="tooltip" title="Ticket de creacion del usuario">({{usuario.ticket}})</span></li>
         {% endfor %}
       {% endfor %}
     </td>
     <td class="col-md-2">
-      <a href="#div_editar_persona" class="boton_accion_editar" id={{form.id}} data-toggle="modal"><img src={% static "img/botones/editar_blanco.gif" %} alt="editar_persona" name="boton_accion_editar" id={{form.id}}></a>
-      <a href="#div_eliminar_persona" class="boton_accion_eliminar" id={{form.id}} name={{form.nombre_completo}} data-toggle="modal"><img src={% static "img/botones/cesta_blanca.gif" %} alt="eliminar" name="{{form.nombre_completo}}" id={{form.id}} class="boton_accion"></a>
-      <a href="#div_crear_persona" class="boton_accion_crear_aplicacion" id={{form.id}} data-toggle="modal"><img src={% static "img/botones/crear_blanco_persona.gif" %} alt="crear_aplicacion" name="boton_accion" id={{form.id}}><img src="{% static "img/botones/chulo_tuerca_1.gif" %}" alt="chula_crear_aplicacion" name="chulo_tuerca" id={{form.id}}></a>
-      <a href="#div_eliminar_aplicacion_persona" class="boton_accion_eliminar_aplicacion" id={{form.id}} data-toggle="modal"><img src={% static "img/botones/crear_blanco_persona.gif" %} alt="crear_aplicacion" name="boton_accion" id={{form.id}}><img src={% static "img/botones/x_redonda_1.gif" %} name="x_redonda" id={{form.id}}></a>
+      <a href="#div_editar_persona" class="boton_accion_editar" id={{form.id}} data-toggle="modal" title="Editar datos de la persona"><img src={% static "img/botones/editar_blanco.gif" %} alt="editar_persona" name="boton_accion_editar" id={{form.id}}></a>
+      <a href="#div_eliminar_persona" class="boton_accion_eliminar" id={{form.id}} name={{form.nombre_completo}} data-toggle="modal" title="Eliminar persona"><img src={% static "img/botones/cesta_blanca.gif" %} alt="eliminar" name="{{form.nombre_completo}}" id={{form.id}} class="boton_accion"></a>
+      <a href="#div_crear_persona" class="boton_accion_crear_aplicacion" id={{form.id}} data-toggle="modal" title="Adicionar una aplicacion a la persona"><img src={% static "img/botones/crear_blanco_persona.gif" %} alt="crear_aplicacion" name="boton_accion" id={{form.id}}><img src="{% static "img/botones/chulo_tuerca_1.gif" %}" alt="chula_crear_aplicacion" name="chulo_tuerca" id={{form.id}}></a>
+      <a href="#div_eliminar_aplicacion_persona" class="boton_accion_eliminar_aplicacion" id={{form.id}} data-toggle="modal" title="Eliminar una aplicacion a la persona"><img src={% static "img/botones/crear_blanco_persona.gif" %} alt="crear_aplicacion" name="boton_accion" id={{form.id}}><img src={% static "img/botones/x_redonda_1.gif" %} name="x_redonda" id={{form.id}}></a>
     </td>
   </tr>
 {% endif %}

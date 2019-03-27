@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block css %}
+{% endblock %}
+{% block js %}
+{% endblock %}
+{% block content %}
+{% if usuario.META.USERNAME %}
+  <h3 class="usuario">Bienvenid@ {{usuario.META.USERNAME}}!</h3>
+{% else %}
+  <h3 class="usuario" data-toggle="tooltip" title="Titulo de la seccion">Listado de personas</h3>
+{% endif %}
+{{estado}}
+
+<form method="post">
+  {% csrf_token %}
+  <input type="text" name="" value="Usuario">
+  <input type="submit" name="" value="Logear">
+</form>
+{% endblock %}

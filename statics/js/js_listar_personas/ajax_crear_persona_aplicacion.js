@@ -72,6 +72,14 @@ function iniciar_ajax_crear_aplicacion() {
     for (var i = 0; i < lista_de_aplicaciones.length; i++) {
       if (lista_de_aplicaciones[i].checked) {
         lista_de_aplicaciones[i].disabled = "true";
+        //lista_de_aplicaciones[i].parentNode.classList.add('bg-warning')
+      }else{
+        if (lista_de_aplicaciones[i].parentNode.classList.value) {
+          console.log("tiene clase")
+        }else{
+          lista_de_aplicaciones[i].parentNode.classList.add('bg-warning')
+          console.log("no tiene clase asi que le pongo una")
+        }
       }
     }
 
@@ -225,10 +233,10 @@ function iniciar_ajax_crear_aplicacion() {
 
       //aqui vamos a hacver un for para sacar todos las aplicaciones que estan en modo checked, para poder enviarlas a la edicion de la persona
       //y tambien hacemos un STRING para pasarlo a el valor de la varable aplicaciones, que enviaremos por el ajax.
-      var aplicaciones = "&aplicaciones=";
+      var aplicaciones = [];
       for (var i = 0; i < lista_de_aplicaciones.length; i++) {
         if (lista_de_aplicaciones[i].checked) {
-          aplicaciones+=lista_de_aplicaciones[i].value;
+          aplicaciones.push(lista_de_aplicaciones[i].value);
         }
       }
 
@@ -250,7 +258,7 @@ function iniciar_ajax_crear_aplicacion() {
       //y tambien obtenemos el nombre de la persona que queremos agregarle la aplicacion
       /*NOTIFICACIONES*/
 
-      url += token + id + nombre_completo + aplicaciones + cargo + ubicacion + ticket + aplicacion + usuario;
+      url += token + id + nombre_completo + "&aplicaciones=" + aplicaciones + cargo + ubicacion + ticket + aplicacion + usuario;
       console.log(url)
 
       //AQUI LLAMAMOS LA FUNCION QUE ENVIARA LOS DATOS DE FORMA SEGURA POR AJAX A DJANGO.

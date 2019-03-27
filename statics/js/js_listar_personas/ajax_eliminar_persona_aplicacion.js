@@ -171,8 +171,10 @@ function iniciar_ajax_eliminar_persona_aplicacion(){
     for (a = 0; a < aplicaciones_a_eliminar_persona.length; a++){
       if (aplicaciones_a_eliminar_persona[a].checked) {
         aplicaciones_a_eliminar_persona[a].addEventListener('click', aplicaciones_checked_a_eliminar, false);
+        aplicaciones_a_eliminar_persona[a].parentNode.classList.add('bg-warning')
       }else{
         aplicaciones_a_eliminar_persona[a].disabled = "true";
+
       }
     }
 

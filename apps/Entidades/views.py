@@ -180,19 +180,13 @@ def crear_persona_aplicacion(request):
     #SI EL METODO DE LA SOLICITUD ES POST, ENTRA EN ESTE TROZO DE CODIGO
     if request.method == "POST":
         print("entra al method post")
-        #AQUI LO QUE HACEMOS ES UN ARRAY, EL CUAL DESPUES VAMOS A LLENAR CON LOS ID DE LAS APLICACIONES ADICIONADAS
-        POST_aplicaciones = [];
-        #AQUI CON ESTE FOR LO QUE HACEMOS ES COGER LA VARIABLE APLICACIONES QUE SACAMOS DE LA REQUEST.POST, Y LO QUE HACEMOS ES SEPARARLA Y LA GUARDAMOS EN EL ARRAY POST_aplicaciones
-        for a in request.POST.get('aplicaciones'):
-            POST_aplicaciones.append(a)
-        print(POST_aplicaciones)
 
         #AQUI LO QUE HACEMOS ES SEPRAR TODOS LOS DATOS QUE OBTENELOS DE LA REQUEST.POST, Y LOS GUARDAMOS EN UN DICCIONARIO, PARA DESPUES PASARSELO A EL FORMULARIO CON LA INSTANCIA Y ASI PODER EDITAR LA PERSONA
         query = {}
         query['csrfmiddlewaretoken'] = [request.POST.get('csrfmiddlewaretoken')]
         query['id'] = [request.POST.get('id')]
         query['nombre_completo'] = [request.POST.get('nombre_completo')]
-        query['aplicaciones'] = POST_aplicaciones
+        query['aplicaciones'] = request.POST.get('aplicaciones').split(',')
         query['cargo'] = [request.POST.get('cargo')]
         query['ubicacion'] = [request.POST.get('ubicacion')]
 
@@ -201,6 +195,7 @@ def crear_persona_aplicacion(request):
         #Y AQUI LO QUE HACEMOS ES ACTUALIZAR EL DICCIONARIO CON EL DICCIONARIO QUERY QUE HABIAMOS HECHO ANTERIORMENTE
         # Y ASI POR MEDIO DE ESTOS COMANDOS PODEMOS HACER UN DICCIONARIO DE CONSULTA, COMO EL QUE SE CREA EN LA REQUEST.POST
         qdict.update(MultiValueDict(query))
+        print(qdict)
 
         #AQUI HACEMOS UNA VARIABLE, LA CUAL LE PASAMOS EL FORMULARIO DE EDICION DE LA PERSONA, Y COMO PARAMETROS DE ACTUALIZACION LE PASAMOS EL DICCIONARIO
         #QUE HICIMOS ANTERIORMENTE, EL DICCIONARIO DE CONSULTA LLAMADO QDICT, Y COMO SEGUNDO PARAMETRO, PASAMOS LA INSTANCIA DE LA PERSONA A EDITAR, EL CUAL OBTUBIMOS POR MEDIO DE LA PRIMERA LINEA O SEGUNDA DE LA FUNCION DEPENDE DE EL METODO DE SOLICITUD
