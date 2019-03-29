@@ -14,13 +14,11 @@ def logeo(request):
     estado = ""
     print(request.META)
     print(request.META['USERNAME'])
-    if request.method == "POST":
-        print(request.POST)
-        estado = ""
-        if usuario_autenticado.objects.get(usuario=request.META['USERNAME']):
-            estado="logeado"
-        else:
-            estado="denegado"
-        return render(request, "autenticacion/login.html", {'estado':estado})
+    print(request.POST)
+    estado = ""
+    if usuario_autenticado.objects.get(usuario=request.META['USERNAME']):
+        estado="logeado"
     else:
-        return render(request, "autenticacion/login.html", {'estado':estado})
+        estado="denegado"
+    return render(request, "autenticacion/login.html", {'estado':estado})
+    

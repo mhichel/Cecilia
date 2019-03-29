@@ -5,48 +5,57 @@
 {% endblock %}
 {% block title %}<title>Cecilia</title>{% endblock %}
 {% block content %}
+
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">
+    <img src={% static "img/logo_p.gif" %} width="30" height="30" class="d-inline-block align-top" alt="Logo-mi-pequeña-ciega">
+    <strong>Cecilia</strong>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href={% url 'home' %}><strong>Home</strong></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href={% url 'listar_personas' %}><strong>Listado general</strong></a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <strong>Historicos</strong>
+        </a>
+        <div class="dropdown-menu bg-primary" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item bg-primary" href={% url 'listar_historico_personas_creadas' %}><strong class="dropdown_hisotricos">Personas creadas</strong></a>
+          <a class="dropdown-item bg-primary " href={% url 'listar_historico_personas_eliminadas' %}><strong class="dropdown_hisotricos">Personas Eliminadas</strong></a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item bg-primary" href={% url 'listar_historico_aplicaciones_creadas' %}><strong class="dropdown_hisotricos">Aplicaciones creadas</strong></a>
+          <a class="dropdown-item bg-primary" href={% url 'listar_historico_aplicaciones_eliminadas' %}><strong class="dropdown_hisotricos">Aplicaciones eliminadas</strong></a>
+        </div>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <span class="navbar-text">
+        <strong class="texto_navbar">Gestora de entidades<span class="escondido">cecilia</span>  </strong>
+        <h7 class="usuario texto_navbar"><strong>Bienvenid@ {{usuario.usuario}}!</strong></h7>
+      </span>
+    </form>
+  </div>
+</nav>
+
+
 <header>
   <div class="container-fluid div_logo">
     <h1 class="texto_logo">Gestora de entidades Cecilia<img src={% static "img/logo.gif" %} alt="logo" class="logo"></h1>
-    <h3 class="usuario">Bienvenid@ {{usuario.META.USERNAME}}!</h3>
+    <h3 class="usuario">Bienvenid@ {{usuario.nombre_completo}}!</h3>
+    <p>En esta aplicacion podras encontrar las aplicaciones que maneja cada persona de la compañia, al igual que la informacion de las mismas, como el usuario con el que tiene dominio de la aplicacion, como el ticket con que se pidio el alta de la misma.</p>
+    <p>Tambien hay una pestaña de historicos, la cual mostrara las aplicaciones que se han dado de baja y de alta y de la misma forma para las personas</p>
   </div>
 </header>
 
-<div class="container-fluid opciones">
-  <section class="main row">
-    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <a href={% url 'listar_personas' %} class="btn btn-primary">Listado general</a>
-    </article>
-    <br>
-    <br>
-    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <a href={% url 'listar_historico_personas_creadas' %} class="btn btn-primary">Historico de creaciones de personas</a>
-    </article>
-    <br>
-    <br>
-    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <a href={% url 'listar_historico_personas_eliminadas' %} class="btn btn-primary">Historico de eliminaciones de personas</a>
-    </article>
-    <br>
-    <br>
-    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <a href={% url 'listar_historico_aplicaciones_creadas' %} class="btn btn-primary">Historico de creacion de aplicaciones</a>
-    </article>
-    <br>
-    <br>
-    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <a href={% url 'listar_historico_aplicaciones_eliminadas' %} class="btn btn-primary">Historico de eliminacion de aplicaciones</a>
-    </article>
-    <br>
-    <br>
-  </section>
-</div>
 
 
-
-
-<br><br><br><br>
-<p>{{usuario.META}}</p>
-<p>{{usuario.META.REMOTE_USER}}</p>
-<button type="button" name="button" class="btn btn-primary">boton</button>
+<br><br><br><br><br><br><br><br><br><br><br><br>
 {% endblock %}

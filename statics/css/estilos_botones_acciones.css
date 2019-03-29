@@ -261,3 +261,24 @@ a[class="boton_accion_exportar_excel"]:hover > img{
   100%{transform: scale(1.2);}
 }
 /*ANIMACIONES DE BOTON DE ACCION EXPORTAR A EXCEL*/
+
+
+
+
+
+/*estilos de selects de fitros de la tabla listado general*/
+.select_filtro_tabla_general{
+    background-color: rgba(94, 166, 241, 0.1);
+    position: relative;
+    width: 100%;
+    height: 40px;
+    border-radius: 3px;
+    align-content: center;
+    padding-left: 10px;
+    transition: 0.5s;
+}
+.select_filtro_tabla_general:hover{
+  background-color: rgba(94, 166, 241, 0.1);
+  box-shadow: 0px 0px 3px 3px rgb(23, 136, 191);
+}
+/*estilos de selects de fitros de la tabla listado general*/

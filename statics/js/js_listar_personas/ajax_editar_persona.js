@@ -182,10 +182,14 @@ function iniciar_ajax_editar_persona(){
       //ahora el id del cargo que le asignamos
       var cargo = `&cargo=${document.getElementById('id_cargo').value}`;
 
+      //vamos a obtener los datos de la ubicacion de la persona
       var ubicacion = `&ubicacion=${document.getElementById('id_ubicacion').value}`;
 
+      //vamos a obtener los datos de la ubicacion del centro de la persona
+      var centro = `&centro=${document.getElementById('id_centro').value}`;
+
       //ahora vamos a hacer la URL completa con la informacion obtenida anteriormente
-      var url = token + id + nombre_completo + cargo + ubicacion;
+      var url = token + id + nombre_completo + cargo + ubicacion + centro;
       console.log(url)
 
       //luego vamos a hacer el envio de la informacion a la funcion de enviar peticion ajax post 2

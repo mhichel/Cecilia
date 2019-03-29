@@ -13,15 +13,23 @@
 }
 
 .texto_logo{
-  font-family: apple-system;
   color: rgb(0, 141, 255);
 
 }
+
+.texto_navbar{
+  color: rgb(255, 255, 255);
+}
+
 
 /*-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";*/
 
 
 .usuario{
   font-family: fantasy;
-  color: rgb(0, 141, 255);
+  font-weight: 100;
+}
+
+.escondido{
+  opacity: 0;
 }

@@ -1,7 +1,8 @@
 {% load staticfiles %}
 {% if estado == "bien" %}
   <tr id=tres{{persona.id}} class="clearfix visible-md-block">
-    <td class="col-md-2">{{persona.ubicacion}}</td>
+    <td class="col-md-1">{{persona.centro}}</td>
+    <td class="col-md-1">{{persona.ubicacion}}</td>
     <td class="col-md-2">{{persona.nombre_completo}}</td>
     <td class="col-md-2">{{persona.cargo}}</td>
     <td class="col-md-4">
@@ -22,6 +23,10 @@
   <form method="post" id="form_de_crear_persona_nueva">
     {% csrf_token %}
     <div class="form-group">
+      <label for="id_centro_persona_nueva">Centro</label>
+        {{form.centro}}
+    </div>
+    <div class="form-group">
       <label for="id_nombre_completo_persona_nueva">Nombre</label>
         {{form.nombre_completo}}
     </div>
@@ -38,7 +43,7 @@
         {{form.aplicaciones}}
     </div>
 
-    <button type="submit" name="button" class="btn btn-success btn-block">Crear</button>
-    <button type="button" name="button" class="btn btn-warning btn-block" data-dismiss="modal">Cerrar</button>
+    <button type="submit" name="button" class="btn btn-primary btn-block">Crear</button>
+    <button type="button" name="button" class="btn btn-danger btn-block" data-dismiss="modal">Cerrar</button>
   </form>
 {% endif %}

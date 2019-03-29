@@ -181,6 +181,8 @@ function iniciar_ajax_eliminar_persona_aplicacion(){
     //aqui vamos a crear las variables, que van a ser modificadas en la funcion de aplicaciones_checked_a_eliminar
     var ticket_eliminacion;
     var espacio;
+    //con este span vamos a poner las validacion del formulario mas adelante
+    var span_ticket_eliminacion_aplicacion;
     var aplicacion_a_eliminar_persona;
 
     //aqui en esta funcion, lo que hacemos es primero validar si lo que se hizo con el click fue un checked false o un checked true, o sea que si se deschequeo o se chequeo
@@ -200,9 +202,11 @@ function iniciar_ajax_eliminar_persona_aplicacion(){
           //empezamos a crear los elementos o los nodos y los insertamos en el padre del objetivo de la escuche que seria el input
           espacio = document.createElement('br');
           ticket_eliminacion = document.createElement('input');
+          span_ticket_eliminacion_aplicacion = document.createElement('span')
           //luego los vamos ha empezar a insertar dentro del formulario
           e.target.parentNode.appendChild(espacio);
           e.target.parentNode.appendChild(ticket_eliminacion);
+          e.target.parentNode.appendChild(span_ticket_eliminacion_aplicacion);
           //luego les aplicaremos algunas propiedades, como id y un placeholder
           ticket_eliminacion.id = "input_ticket_eliminacion_usuario";
           ticket_eliminacion.placeholder = "N° ticket de eliminacion";
@@ -215,9 +219,11 @@ function iniciar_ajax_eliminar_persona_aplicacion(){
         //remueve los elementos que creamos anteriormente
         e.target.parentNode.removeChild(espacio);
         e.target.parentNode.removeChild(ticket_eliminacion);
+        e.target.parentNode.removeChild(span_ticket_eliminacion_aplicacion);
         //limpia las variables creadas anteriormente
         espacio = "";
         ticket_eliminacion = "";
+        span_ticket_eliminacion_aplicacion = "";
       }
 
     }
@@ -226,6 +232,22 @@ function iniciar_ajax_eliminar_persona_aplicacion(){
     function inicializar_ajax_eliminar_persona_aplicacion_POST_2(e){
       //lo primero que hacemos es prevenir el envio de la informacion
       e.preventDefault();
+      //luego vamos a hacer la validacion del formulario y lo vamos a poner los errores en el span que crramos anteriormente
+      if (ticket_eliminacion.value.length==0) {
+        span_ticket_eliminacion_aplicacion.innerHTML="Llena el campo ticket";
+        span_ticket_eliminacion_aplicacion.classList.add("span_validacion_formulario")
+        return false
+      }else if (isNaN(parseInt(ticket_eliminacion.value))) {
+        span_ticket_eliminacion_aplicacion.innerHTML="Solo se permiten numeros";
+        span_ticket_eliminacion_aplicacion.classList.add("span_validacion_formulario")
+        return false
+      }else{
+        span_ticket_eliminacion_aplicacion.innerHTML=""
+        span_ticket_eliminacion_aplicacion.classList.remove("span_validacion_formulario")
+      }
+
+
+
       //luego vamos ha hacer la obtencion de los datos
       //comenzamos con el token, lo obtenemos por medio de la variable del forulario y ponemos la pocicion 0 que es la 1 y aqui se ecuentra el token
       var token = `csrfmiddlewaretoken=${form_eliminacion_aplicacion[0].value}&`;

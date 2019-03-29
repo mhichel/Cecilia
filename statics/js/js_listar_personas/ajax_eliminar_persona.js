@@ -35,7 +35,7 @@ function iniciar_ajax_eliminar_persona(){
 
     //primero vamos ha hacer que en el momento de que presionamos en el boton de eliminar de alguna persona, que en el formulario o la ventana de eliminar PERSONA
     // aparesca una notificacion que si desea eliminar la persona o no y esto lo hacemos por medio de un innerHTML al formulario
-    div_formulario_eliminar_persona.innerHTML = `<h5>Esta seguro que desea eliminar a ${nombre_completo} de la plataforma?</h5><input type="submit" value="Si" id="si_deseo_eliminar_la_persona" class="btn btn-warning btn-block"><button type="button" name="button" class="btn btn-success btn-block" data-dismiss="modal">No</button>`;
+    div_formulario_eliminar_persona.innerHTML = `<h5>Esta seguro que desea eliminar a ${nombre_completo} de la plataforma?</h5><input type="submit" value="Si" id="si_deseo_eliminar_la_persona" class="btn btn-danger btn-block"><button type="button" name="button" class="btn btn-primary btn-block" data-dismiss="modal">No</button>`;
 
     //ahora vamos a poner a la escucha de un evento al boton de si y de no de los botones que acabamos de insertar en el formulario de eliminacion de la persona
     var boton_si_eliminar_persona = document.getElementById('si_deseo_eliminar_la_persona');

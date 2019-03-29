@@ -13,16 +13,45 @@
 {% endblock %}
 
 {% block content %}
-<header>
-  <div class="container-fluid div_logo">
-    <h1 class="texto_logo">Gestora de entidades Cecilia<img src={% static "img/logo.gif" %} alt="logo" class="logo"></h1>
-    {% if usuario.META.USERNAME %}
-      <h3 class="usuario">Bienvenid@ {{usuario.META.USERNAME}}!</h3>
-    {% else %}
-      <h3 class="usuario" data-toggle="tooltip" title="Titulo">Registro de aplicaciones creadas</h3>
-    {% endif %}
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">
+    <img src={% static "img/logo_p.gif" %} width="30" height="30" class="d-inline-block align-top" alt="Logo-mi-pequeña-ciega">
+    <strong>Cecilia</strong>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href={% url 'home' %}><strong>Home</strong></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href={% url 'listar_personas' %}><strong>Listado general</strong></a>
+      </li>
+      <li class="nav-item dropdown active">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <strong>Historicos</strong>
+        </a>
+        <div class="dropdown-menu bg-primary" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item bg-primary" href={% url 'listar_historico_personas_creadas' %}><strong class="dropdown_hisotricos">Personas creadas</strong></a>
+          <a class="dropdown-item bg-primary " href={% url 'listar_historico_personas_eliminadas' %}><strong class="dropdown_hisotricos">Personas Eliminadas</strong></a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item bg-primary" href={% url 'listar_historico_aplicaciones_creadas' %}><strong class="dropdown_hisotricos">Aplicaciones creadas</strong></a>
+          <a class="dropdown-item bg-primary" href={% url 'listar_historico_aplicaciones_eliminadas' %}><strong class="dropdown_hisotricos">Aplicaciones eliminadas</strong></a>
+        </div>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <span class="navbar-text">
+        <strong>Gestora de entidades</strong>
+        <h7 class="usuario"><strong>Bienvenid@ {{usuario}}!</strong></h7>
+      </span>
+    </form>
   </div>
-</header>
+</nav>
+<br>
   <div class="container-fluid">
     <input type="search" class="boton_busqueda_general_historico_aplicaciones_creadas form-control" id="boton_busqueda_general_historico_aplicaciones_creadas" placeholder="Busqueda general" data-toggle="tooltip" title="Aqui podras buscar en la tahla de historicos por cualquier parametro, ya que se busca por cualquier campo de la misma">
   </div>
@@ -45,17 +74,17 @@
       </form>
     </fieldset>
   </div>
-
+<br>
   <div class="table-responsive">
   <div class="tabla_entera container-fluid">
-    <table class="tabla_historico table table-striped table-bordered table-hover table-fixed">
-      <thead>
-        <tr class="bg-info clearfix visible-md-block tr_principal"><th colspan="4" id="titulo_tabla_aplicaciones_creadas" class="col-md-11">Registro de aplicaciones creadas</th><th class="col-md-1 th_acciones"><a href="#" class="boton_accion_exportar_excel" id="exportar_excel"><img src={% static "img/botones/exportar_excel.gif" %} alt="exportar_a_excel" name="boton_accion" id="exportar_excel_historico_aplicaciones_creadas" class="boton_accion_exportar_excel" data-toggle="tooltip" title="Para exportar a excel"></a><a href={% url 'home' %}><img src="{% static "img/botones/retroceder.gif" %}" alt="retroceder" class="retroceder" data-toggle="tooltip" title="Para retroceder a la pagina anterior"></a></th></tr>
-        <th class="col-md-2">Hora de creacion</th>
-        <th class="col-md-3">Persona</th>
-        <th class="col-md-2">Aplicacion</th>
-        <th class="col-md-3">Usuario</th>
-        <th class="col-md-2">Ticket creacion</th>
+    <table class="tabla_historico table table-striped table-bordered table-hover table-fixed tabla_listado">
+      <thead class="letra_blanca">
+        <tr class="clearfix visible-md-block tr_principal bg-primary"><th colspan="4" id="titulo_tabla_aplicaciones_creadas" class="col-md-11">Registro de aplicaciones creadas</th><th class="col-md-1 th_acciones"><a href="#" class="boton_accion_exportar_excel" id="exportar_excel"><img src={% static "img/botones/exportar_excel.gif" %} alt="exportar_a_excel" name="boton_accion" id="exportar_excel_historico_aplicaciones_creadas" class="boton_accion_exportar_excel" data-toggle="tooltip" title="Para exportar a excel"></a><a href={% url 'home' %}><img src="{% static "img/botones/retroceder.gif" %}" alt="retroceder" class="retroceder" data-toggle="tooltip" title="Para retroceder a la pagina anterior"></a></th></tr>
+        <th class="col-md-2 bg-primary">Hora de creacion</th>
+        <th class="col-md-3 bg-primary">Persona</th>
+        <th class="col-md-2 bg-primary">Aplicacion</th>
+        <th class="col-md-3 bg-primary">Usuario</th>
+        <th class="col-md-2 bg-primary">Ticket creacion</th>
       </thead>
       <tbody id="tbody_historico_aplicaciones_creadas">
           {% for persona in personas %}

@@ -156,6 +156,10 @@ function iniciar_ajax_crear_persona(){
     var espacio_02;
     //variable que guardara el elemento input segundo, el cual sera para el usuario de la aplicacion
     var input_usuario_01;
+    //variable la cual sera un span el cual insertaremos el error de la validacion de formulario cuando sea requerido en la validacion del campo ticket
+    var span_ticket_crear_persona;
+    //variable la cual sera un span en el cual insertaremos el error de la validacion de formulario cuando sea requerido en la validacion del campo ticket
+    var span_usuario_crear_persona;
 
     //aqui hacemos una funcion la cual es la que se va a ejecutar cuando le demos clic a los checkbox
     // y lo que hara esta funcion es que, si el elemento objetivo escha chequeado pues pondra los inputs y si esta deschqueado los quitara
@@ -169,28 +173,41 @@ function iniciar_ajax_crear_persona(){
         input_ticket_01.placeholder = "N°.Ticket";
         input_ticket_01.id = `input_ticket${elemento_1.target.value}`;
         input_ticket_01.classList = "ticket_creacion_aplicacion_nueva_persona";
+        span_ticket_crear_persona = document.createElement('span');
+        span_ticket_crear_persona.id = `span_ticket_01_${elemento_1.target.value}`;
+        span_ticket_crear_persona.classList.add("span_ticket_crear_persona");
         espacio_02 = document.createElement('br');
         espacio_02.id = `espacio_02_${elemento_1.target.value}`;
         input_usuario_01 = document.createElement('input');
         input_usuario_01.placeholder = "Nombre de usuario";
         input_usuario_01.id = `input_usuario${elemento_1.target.value}`;
         input_usuario_01.classList = "usuario_creacion_aplicacion_nueva_persona";
+        span_usuario_crear_persona = document.createElement('span');
+        span_usuario_crear_persona.id = `span_usuario_01_${elemento_1.target.value}`;
+        span_usuario_crear_persona.classList.add("span_usuario_crear_persona");
+
         elemento_1.target.parentNode.appendChild(espacio_01);
         elemento_1.target.parentNode.appendChild(input_ticket_01);
+        elemento_1.target.parentNode.appendChild(span_ticket_crear_persona);
         elemento_1.target.parentNode.appendChild(espacio_02);
         elemento_1.target.parentNode.appendChild(input_usuario_01);
+        elemento_1.target.parentNode.appendChild(span_usuario_crear_persona);
         //de lo contrario si el elemento arroja un false en el checked, osea que no esta chequeado, entonces lo que hara sera primero buscarlos los inputs y espacios segun el id que le habiamos puesto}
         // y luego los removera del formulario
       }else if (elemento_1.target.checked != "true"){
         espacio_01 = document.getElementById(`espacio_01_${elemento_1.target.value}`);
         input_ticket_01 = document.getElementById(`input_ticket${elemento_1.target.value}`);
+        span_ticket_crear_persona = document.getElementById(`span_ticket_01_${elemento_1.target.value}`);
         espacio_02 = document.getElementById(`espacio_02_${elemento_1.target.value}`);
         input_usuario_01 = document.getElementById(`input_usuario${elemento_1.target.value}`);
+        span_usuario_crear_persona = document.getElementById(`span_usuario_01_${elemento_1.target.value}`);
 
         elemento_1.target.parentNode.removeChild(espacio_01);
         elemento_1.target.parentNode.removeChild(input_ticket_01);
+        elemento_1.target.parentNode.removeChild(span_ticket_crear_persona);
         elemento_1.target.parentNode.removeChild(espacio_02);
         elemento_1.target.parentNode.removeChild(input_usuario_01);
+        elemento_1.target.parentNode.removeChild(span_usuario_crear_persona);
         }
       }
 
@@ -204,6 +221,79 @@ function iniciar_ajax_crear_persona(){
       //aqui lo primero que hacemos el prevenir el evento de envio del ofrmulario, por que primero queremos obtener los datos y enviarlos por AJAX, y esto lo hacemos con el siguiente comando
       //ponemos el evento y lo prevenimos con esta funcion
       a.preventDefault();
+
+
+      //aqui vamos a validar si los inputs cumplen con el requerimiento de que si se digitaron datos numericos SOLAMENTE
+      // y si es asi entonces que se sigua ejecutando todo el codigo
+      //primero obtenemos todos los span que tengan la clase span_ticket_crear_persona, para poder validarlos todos, luego hacemos un for para recorrerlos y validarlos
+      var spanes_de_ticket_crear_persona = document.getElementsByClassName('span_ticket_crear_persona');
+      //despues obtenemos en otra variable la lista de los span_usuario_crear_persona, para anidarlo al for de span_ticket_crear_persona
+      var spanes_de_usuario_crear_persona = document.getElementsByClassName('span_usuario_crear_persona');
+      //lo mismo vamos a hacer con los input, por que tambien los necesitamos validar, para anidarlos al for
+      var inputs_de_tickets_crear_persona = document.getElementsByClassName('ticket_creacion_aplicacion_nueva_persona');
+      //lo mismo con el del usuario
+      var inputs_de_usuarios_crear_persona = document.getElementsByClassName('usuario_creacion_aplicacion_nueva_persona');
+      console.log("crea las listas")
+      for (var i = 0; i < spanes_de_ticket_crear_persona.length; i++) {
+        console.log("entra el 1 for")
+        console.log(spanes_de_usuario_crear_persona)
+        console.log(spanes_de_ticket_crear_persona)
+        for (var a = 0; a < spanes_de_usuario_crear_persona.length; a++) {
+          console.log("entra el 2 for")
+          for (var b = 0; b < inputs_de_tickets_crear_persona.length; b++) {
+            console.log("entra el 3 for")
+            for (var c = 0; c < inputs_de_usuarios_crear_persona.length; c++) {
+                if (inputs_de_tickets_crear_persona[b].value.length==0 || inputs_de_usuarios_crear_persona[c].value.length==0) {
+                  console.log("entra a la validaciones")
+                  console.log("input ticket")
+                  console.log(inputs_de_tickets_crear_persona[b])
+                  console.log("input usuario")
+                  console.log(inputs_de_usuarios_crear_persona[c])
+                  console.log(c)
+                  if (inputs_de_tickets_crear_persona[b].value.length==0) {
+                    spanes_de_ticket_crear_persona[i].innerHTML="Llena el campo ticket";
+                    spanes_de_ticket_crear_persona[i].classList.add("span_validacion_formulario")
+                  }else{
+                    spanes_de_ticket_crear_persona[i].innerHTML=""
+                    spanes_de_ticket_crear_persona[i].classList.remove("span_validacion_formulario")
+                  }
+                  if (inputs_de_usuarios_crear_persona[c].value.length==0) {
+                    spanes_de_usuario_crear_persona[a].innerHTML="Llena el campo usuario";
+                    spanes_de_usuario_crear_persona[a].classList.add("span_validacion_formulario")
+                  }else{
+                    spanes_de_usuario_crear_persona[a].innerHTML=""
+                    spanes_de_usuario_crear_persona[a].classList.remove("span_validacion_formulario")
+                  }
+                  console.log(spanes_de_ticket_crear_persona[i])
+                  console.log(i)
+                  console.log(spanes_de_ticket_crear_persona.length-1)
+                  if (i == spanes_de_ticket_crear_persona.length-1) {
+                      console.log("retorna el false")
+                      return false
+                  }
+
+                }else if (isNaN(parseInt(inputs_de_tickets_crear_persona[b].value))) {
+                  spanes_de_ticket_crear_persona[i].innerHTML="Solo se permiten numeros";
+                  spanes_de_ticket_crear_persona[i].classList.add("span_validacion_formulario")
+                  if (!inputs_de_usuarios_crear_persona[c].value.length==0) {
+                    spanes_de_usuario_crear_persona[a].innerHTML=""
+                    spanes_de_usuario_crear_persona[a].classList.remove("span_validacion_formulario")
+                  }
+                  return false
+                }else{
+                  spanes_de_usuario_crear_persona[a].innerHTML=""
+                  spanes_de_usuario_crear_persona[a].classList.remove("span_validacion_formulario")
+                  spanes_de_ticket_crear_persona[i].innerHTML=""
+                  spanes_de_ticket_crear_persona[i].classList.remove("span_validacion_formulario")
+                }
+            }
+          }
+        }
+      }
+
+
+
+
 
       //luego aqui vamos a hacer la funcion la cual le pasaremos como parametro los datos obtenidos del formulario y enviaremos por AJAX a Django
       function enviar_datos_AJAX_crear_persona_POST(data) {
@@ -274,6 +364,9 @@ function iniciar_ajax_crear_persona(){
       //ahora vamos a obtener el valor de la bodega asignada
       var bodega = `bodega=${document.getElementById("id_ubicacion_persona_nueva").value}`;
 
+      //vamos a obtener los datos de el centro al que pertenece la persona
+      var centro = `centro=${document.getElementById("id_centro_persona_nueva").value}`;
+
       /*NOTIFICACIONES*/
       //aqui vamos a hacer algo completamente diferente a lo que estamos haciendo, vamos a declarar una variable, la cual nos servira para el momento de la notificacion en pantala del nombre completo
       nombre_completo_para_notificacion_crear_persona = document.getElementById('id_nombre_completo_persona_nueva').value;
@@ -283,7 +376,7 @@ function iniciar_ajax_crear_persona(){
       // no podemos obtener el id, asi que el id lo podriamos obtener en Django y no aqui
 
       //por ultimo haremos la variable URL. la cual obtendra el valos de todas las demas variables y las ordenara
-      var url = `${token}&${nombre_completo}&aplicaciones=${array_aplicacion_a_adicionar_persona_nueva}&${cargo}&${bodega}&array_de_usuarios=${array_de_usuarios}&array_de_tickets=${array_de_tickets}`;
+      var url = `${token}&${nombre_completo}&aplicaciones=${array_aplicacion_a_adicionar_persona_nueva}&${cargo}&${centro}&${bodega}&array_de_usuarios=${array_de_usuarios}&array_de_tickets=${array_de_tickets}`;
       console.log(url);
       //ahora llamamos la funcion para enviar la peticion AJAX y le pasamos como parametro la URL que creamos, la cual tiene todos los datos
       enviar_datos_AJAX_crear_persona_POST(url);

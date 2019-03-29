@@ -2,8 +2,9 @@
 from django.shortcuts import render
 
 #Aqui estamos importando los modelos para poder hacer consultas a los mismos
-from apps.Entidades.models import persona, aplicacion, cargo, bodega, usuario, historico_creacion_persona, historico_eliminacion_persona, creacion_aplicacion, eliminacion_aplicacion
-
+from apps.Entidades.models import persona, aplicacion, cargo, ubicacion, usuario, historico_creacion_persona, historico_eliminacion_persona, creacion_aplicacion, eliminacion_aplicacion, centro
+#aqui importamos la tabla que contiene los usuarios de red
+from apps.autenticacion.models import usuario_autenticado
 #Aqui importamos los forms creados para crear editar o eliminar los modelos
 from apps.Entidades.forms import PersonaForm, HistoricoForm_creacion_persona, AplicacionForm, PersonaForm_addaplicacion, UsuarioForm, EditarPersonaForm, HistoricoForm_eliminacion_persona, AplicacionForm_eliminacion
 
@@ -27,8 +28,20 @@ from django.http.request import QueryDict, MultiValueDict
 
 #VISTA PRINCIPAL******************
 def home(request):
-    usuario = request
-    return render(request, 'home.html', {'usuario':usuario})
+    print(request.META['USERNAME'])
+    estado=""
+    try:
+        if usuario_autenticado.objects.get(usuario=request.META['USERNAME']):
+            usuario = usuario_autenticado.objects.get(usuario=request.META['USERNAME'])
+            print(usuario.correo)
+            estado="logeado"
+            return render(request, 'home.html', {'estado':estado,'usuario':usuario})
+        else:
+            estado="denegado"
+            return render(request, 'denegado.html', {'estado':estado})
+    except Exception as e:
+        estado="denegado"
+        return render(request, 'denegado.html', {'estado':estado})
 #VISTA PRINCIPAL******************
 
 
@@ -42,6 +55,7 @@ def trigger_hisotrico(persona):
         'aplicaciones' : aplicaciones,
         'cargo' : persona.cargo,
         'ubicacion' : persona.ubicacion,
+        'centro' : persona.centro,
     }
 
     form_hisotrico = HistoricoForm_creacion_persona(values)
@@ -65,6 +79,8 @@ def crear_persona(request):
         dic_persona_nueva['cargo'] = [request.POST.get('cargo')]
         #ahora traemos el valor de la ubicacion asignada a la nueva persona y lo agregamos tambien al diccionario
         dic_persona_nueva['ubicacion'] = [request.POST.get('bodega')]
+        #aqui vamos a obtener el centro al que pertenece la persona
+        dic_persona_nueva['centro'] = [request.POST.get('centro')]
 
         #con esto finalizamos el diccionario con todos los campos requeridos para el formulario
         # ahora lo que tenemos que hacer es que el diccionario se convierta en un diccionario de consulta, para que el formulario lo pueda recibir y valir correctamente
@@ -189,6 +205,7 @@ def crear_persona_aplicacion(request):
         query['aplicaciones'] = request.POST.get('aplicaciones').split(',')
         query['cargo'] = [request.POST.get('cargo')]
         query['ubicacion'] = [request.POST.get('ubicacion')]
+        query['centro'] = [request.POST.get('centro')]
 
         #AQUI LO UQE HACEMOS ES HACER UN DICCIONADO DE CONSULTA MUTABLE POR MEDIO DE ESTAS KEYWORDS
         qdict = QueryDict('',mutable=True)
@@ -273,10 +290,11 @@ def listar_personas(request):
     lista = persona.objects.all()
     aplicaciones = aplicacion.objects.all()
     cargos = cargo.objects.all()
-    bodegas = bodega.objects.all()
+    ubicaciones = ubicacion.objects.all()
+    centros = centro.objects.all()
 
 
-    return render(request, 'listar_personas/listar_personas.html', {'lista': lista, 'aplicaciones': aplicaciones,'cargos': cargos, 'bodegas':bodegas})
+    return render(request, 'listar_personas/listar_personas.html', {'lista': lista, 'aplicaciones': aplicaciones,'cargos': cargos, 'bodegas':ubicaciones, 'centros':centros})
 
 #Esta es la vista que utiliza filtros y ordenaciones
 def busquedas_con_filtros(request):
@@ -291,9 +309,10 @@ def busquedas_con_filtros(request):
                 Q(nombre_completo__icontains=query) |
                 Q(aplicaciones__nombre_aplicacion__icontains=query) |
                 Q(cargo__nombre_cargo__icontains=query) |
-                Q(ubicacion__ubicacion__icontains=query) |
+                Q(ubicacion__ubicacion_actual__icontains=query) |
                 Q(usuario__usuario__icontains=query) |
-                Q(usuario__ticket__icontains=query)
+                Q(usuario__ticket__icontains=query) |
+                Q(centro__sede__icontains=query)
                 )
             #LUEGO AQUI HACE LA BUSQUEDA EN EL MODELO PERSONA Y LUEGO LO ENVIAMOS CON UN RENDER
             lista = persona.objects.filter(qset).distinct()
@@ -316,7 +335,7 @@ def busquedas_con_filtros(request):
 
                 #luego con la hoja activa vamos a trabajar
                 #ahora vamos a juntar algunas celdas para que se vea que el titulo abarca toda la tabla
-                hoja_activa_busqueda_general_personas.merge_cells('A1:F1')
+                hoja_activa_busqueda_general_personas.merge_cells('A1:G1')
                 titulo = hoja_activa_busqueda_general_personas['A1']
                 #vamos a poner el nombre de la tabla con el siguiente parametro
                 titulo.value = "Gestora de entidades Cecilia"
@@ -360,6 +379,10 @@ def busquedas_con_filtros(request):
                 #luego aqui guardamos en una variable la celda para despues mas adelante con un metodo ponerle un estilo
                 cell_ticket = hoja_activa_busqueda_general_personas['F2']
 
+                hoja_activa_busqueda_general_personas['G2'] = "Centro"
+                #luego aqui guardamos en una variable la celda para despues mas adelante con un metodo ponerle un estilo
+                cell_centro = hoja_activa_busqueda_general_personas['G2']
+
                 #aqui vamos a ponerles estilos a los titulos de las columnas para que se vea mejor
                 cell_ubicacion.fill = PatternFill("solid", fgColor="000000")
                 cell_ubicacion.font  = Font(b=True, color="ffffff")
@@ -373,6 +396,8 @@ def busquedas_con_filtros(request):
                 cell_usuario.font  = Font(b=True, color="ffffff")
                 cell_ticket.fill = PatternFill("solid", fgColor="000000")
                 cell_ticket.font  = Font(b=True, color="ffffff")
+                cell_centro.fill = PatternFill("solid", fgColor="000000")
+                cell_centro.font  = Font(b=True, color="ffffff")
 
                 #Ahora vamos a crear un contador para recorrer todos los registros de la variable que tiene los registros de la tabla de historicos de personas creadas
                 contador_busqueda_general_personas=3
@@ -400,6 +425,11 @@ def busquedas_con_filtros(request):
                     hoja_activa_busqueda_general_personas.cell(row=contador_busqueda_general_personas,column=3).value = str(registro.cargo)
                     #aqui vamos a guardar en una variable la celda para poder pintarla con el metodo fill mas delante
                     valor3 = hoja_activa_busqueda_general_personas.cell(row=contador_busqueda_general_personas,column=3)
+
+                    #luego de unir las celdas, vamos a empezar a insertar las datos de la persona aqui estamos insertando la sede
+                    hoja_activa_busqueda_general_personas.cell(row=contador_busqueda_general_personas,column=3).value = str(registro.centro)
+                    #aqui vamos a guardar en una variable la celda para poder pintarla con el metodo fill mas delante
+                    valor4 = hoja_activa_busqueda_general_personas.cell(row=contador_busqueda_general_personas,column=7)
 
 
 
@@ -449,11 +479,13 @@ def busquedas_con_filtros(request):
                         valor1.fill = PatternFill("solid", fgColor="bdbdbd")
                         valor2.fill = PatternFill("solid", fgColor="bdbdbd")
                         valor3.fill = PatternFill("solid", fgColor="bdbdbd")
+                        valor4.fill = PatternFill("solid", fgColor="bdbdbd")
                         color = 1
                     else:
                         valor1.fill = PatternFill("solid", fgColor="a3a3a3")
                         valor2.fill = PatternFill("solid", fgColor="a3a3a3")
                         valor3.fill = PatternFill("solid", fgColor="a3a3a3")
+                        valor4.fill = PatternFill("solid", fgColor="a3a3a3")
                         color = 0
 
 
@@ -477,6 +509,13 @@ def busquedas_con_filtros(request):
 
         #CON ESTO SE HACE LA BUSQUEDA ANIDADA
         lista = persona.objects.all()
+        #AQUI RELACIONAMOS LA SEDE Y SI NO ESTA, EL OBJETO LISTA LO DEJA IGUAL SIN NINGUN FILTRO POR PARTE DE LA SEDE
+        if request.GET.get('centro'):
+            centro = request.GET.get('centro')
+            if centro == "all":
+                lista = lista
+            else:
+                lista = lista.filter(centro=centro)
         #AQUI RELACIONAMOS LA UBICACION Y SI NO ESTA, EL OBJETO LISTA LO DEJA IGUAL SIN NINGUN FILTRO POR PARTE DE LA UBICACION
         if request.GET.get('ubicacion'):
             ubicacion = request.GET.get('ubicacion')
@@ -539,7 +578,7 @@ def busquedas_con_filtros(request):
 
             #luego con la hoja activa vamos a trabajar
             #ahora vamos a juntar algunas celdas para que se vea que el titulo abarca toda la tabla
-            hoja_activa_busqueda_general_personas.merge_cells('A1:F1')
+            hoja_activa_busqueda_general_personas.merge_cells('A1:G1')
             titulo = hoja_activa_busqueda_general_personas['A1']
             #vamos a poner el nombre de la tabla con el siguiente parametro
             titulo.value = "Gestora de entidades Cecilia"
@@ -583,6 +622,10 @@ def busquedas_con_filtros(request):
             #luego aqui guardamos en una variable la celda para despues mas adelante con un metodo ponerle un estilo
             cell_ticket = hoja_activa_busqueda_general_personas['F2']
 
+            hoja_activa_busqueda_general_personas['G2'] = "Centro"
+            #luego aqui guardamos en una variable la celda para despues mas adelante con un metodo ponerle un estilo
+            cell_centro = hoja_activa_busqueda_general_personas['G2']
+
             #aqui vamos a ponerles estilos a los titulos de las columnas para que se vea mejor
             cell_ubicacion.fill = PatternFill("solid", fgColor="000000")
             cell_ubicacion.font  = Font(b=True, color="ffffff")
@@ -596,6 +639,8 @@ def busquedas_con_filtros(request):
             cell_usuario.font  = Font(b=True, color="ffffff")
             cell_ticket.fill = PatternFill("solid", fgColor="000000")
             cell_ticket.font  = Font(b=True, color="ffffff")
+            cell_centro.fill = PatternFill("solid", fgColor="000000")
+            cell_centro.font  = Font(b=True, color="ffffff")
 
             #Ahora vamos a crear un contador para recorrer todos los registros de la variable que tiene los registros de la tabla de historicos de personas creadas
             contador_busqueda_general_personas=3
@@ -623,6 +668,11 @@ def busquedas_con_filtros(request):
                 hoja_activa_busqueda_general_personas.cell(row=contador_busqueda_general_personas,column=3).value = str(registro.cargo)
                 #aqui vamos a guardar en una variable la celda para poder pintarla con el metodo fill mas delante
                 valor3 = hoja_activa_busqueda_general_personas.cell(row=contador_busqueda_general_personas,column=3)
+
+                #luego de unir las celdas, vamos a empezar a insertar las datos de la persona aqui estamos insertando el cargo
+                hoja_activa_busqueda_general_personas.cell(row=contador_busqueda_general_personas,column=7).value = str(registro.centro)
+                #aqui vamos a guardar en una variable la celda para poder pintarla con el metodo fill mas delante
+                valor4 = hoja_activa_busqueda_general_personas.cell(row=contador_busqueda_general_personas,column=7)
 
 
 
@@ -672,11 +722,13 @@ def busquedas_con_filtros(request):
                     valor1.fill = PatternFill("solid", fgColor="bdbdbd")
                     valor2.fill = PatternFill("solid", fgColor="bdbdbd")
                     valor3.fill = PatternFill("solid", fgColor="bdbdbd")
+                    valor4.fill = PatternFill("solid", fgColor="bdbdbd")
                     color = 1
                 else:
                     valor1.fill = PatternFill("solid", fgColor="a3a3a3")
                     valor2.fill = PatternFill("solid", fgColor="a3a3a3")
                     valor3.fill = PatternFill("solid", fgColor="a3a3a3")
+                    valor4.fill = PatternFill("solid", fgColor="a3a3a3")
                     color = 0
 
 
@@ -719,6 +771,7 @@ def eliminar_persona(request):
             'aplicaciones' : aplicaciones,
             'cargo' : persona_a_eliminar.cargo,
             'ubicacion' : persona_a_eliminar.ubicacion,
+            'centro' : persona_a_eliminar.centro,
         }
         #aqui vamos a guardar el nombre de la persona eliminada para mostrarlo en el template
         persona_eliminada = persona_a_eliminar.nombre_completo
@@ -886,7 +939,8 @@ def busqueda_historico_personas_creadas(request):
                 Q(persona__icontains=consulta_general_historico_personas_creadas) |
                 Q(aplicaciones__icontains=consulta_general_historico_personas_creadas) |
                 Q(cargo__icontains=consulta_general_historico_personas_creadas) |
-                Q(ubicacion__icontains=consulta_general_historico_personas_creadas)
+                Q(ubicacion__icontains=consulta_general_historico_personas_creadas) |
+                Q(centro__icontains=consulta_general_historico_personas_creadas)
             )
             #luego aqui hace el filtrado de los registro por medio de la consulta y el ultimo parametro es que si encuentra algun registro duplicado que no lo muestre
             historico_personas_creadas = historico_personas_creadas.filter(qset_historico_personas_creadas).distinct()
@@ -904,7 +958,7 @@ def busqueda_historico_personas_creadas(request):
             #primero vamos a poner el nombre de la tabla con el siguiente parametro
             hoja_activa_historico_personas_creadas['A1'] = "Reporte historico personas creadas"
             #ahora vamos a juntar algunas celdas para que se vea que el titulo abarca toda la tabla
-            hoja_activa_historico_personas_creadas.merge_cells('A1:E1')
+            hoja_activa_historico_personas_creadas.merge_cells('A1:F1')
 
             #ahora vamos a crear los campos de la tabla, o sea los titulos de cada columna
             hoja_activa_historico_personas_creadas['A2'] = "Hora creacion"
@@ -912,6 +966,7 @@ def busqueda_historico_personas_creadas(request):
             hoja_activa_historico_personas_creadas['C2'] = "Aplicaciones"
             hoja_activa_historico_personas_creadas['D2'] = "Cargo"
             hoja_activa_historico_personas_creadas['E2'] = "Ubicacion"
+            hoja_activa_historico_personas_creadas['F2'] = "Sede"
 
             #Ahora vamos a crear un contador para recorrer todos los registros de la variable que tiene los registros de la tabla de historicos de personas creadas
             contador_historico_personas_creadas=3
@@ -923,6 +978,7 @@ def busqueda_historico_personas_creadas(request):
                 hoja_activa_historico_personas_creadas.cell(row=contador_historico_personas_creadas,column=3).value = registro.aplicaciones
                 hoja_activa_historico_personas_creadas.cell(row=contador_historico_personas_creadas,column=4).value = registro.cargo
                 hoja_activa_historico_personas_creadas.cell(row=contador_historico_personas_creadas,column=5).value = registro.ubicacion
+                hoja_activa_historico_personas_creadas.cell(row=contador_historico_personas_creadas,column=6).value = registro.centro
                 contador_historico_personas_creadas = contador_historico_personas_creadas + 1
 
             #despues de registrar los datos en la tabla, vamos a ponerle nombre al archivo
@@ -990,7 +1046,8 @@ def busqueda_historico_personas_eliminadas(request):
                 Q(persona__icontains=consulta_general_historico_personas_eliminadas) |
                 Q(aplicaciones__icontains=consulta_general_historico_personas_eliminadas) |
                 Q(cargo__icontains=consulta_general_historico_personas_eliminadas) |
-                Q(ubicacion__icontains=consulta_general_historico_personas_eliminadas)
+                Q(ubicacion__icontains=consulta_general_historico_personas_eliminadas) |
+                Q(centro__icontains=consulta_general_historico_personas_eliminadas)
             )
             #luego aqui hace el filtrado de los registro por medio de la consulta y el ultimo parametro es que si encuentra algun registro duplicado que no lo muestre
             historico_personas_eliminadas = historico_personas_eliminadas.filter(qset_historico_personas_eliminadas).distinct()
@@ -1008,7 +1065,7 @@ def busqueda_historico_personas_eliminadas(request):
             #primero vamos a poner el nombre de la tabla con el siguiente parametro
             hoja_activa_historico_personas_eliminadas['A1'] = "Reporte historico personas eliminadas"
             #ahora vamos a juntar algunas celdas para que se vea que el titulo abarca toda la tabla
-            hoja_activa_historico_personas_eliminadas.merge_cells('A1:E1')
+            hoja_activa_historico_personas_eliminadas.merge_cells('A1:F1')
 
             #ahora vamos a crear los campos de la tabla, o sea los titulos de cada columna
             hoja_activa_historico_personas_eliminadas['A2'] = "Hora creacion"
@@ -1016,6 +1073,7 @@ def busqueda_historico_personas_eliminadas(request):
             hoja_activa_historico_personas_eliminadas['C2'] = "Aplicaciones"
             hoja_activa_historico_personas_eliminadas['D2'] = "Cargo"
             hoja_activa_historico_personas_eliminadas['E2'] = "Ubicacion"
+            hoja_activa_historico_personas_eliminadas['F2'] = "Centro"
 
             #Ahora vamos a crear un contador para recorrer todos los registros de la variable que tiene los registros de la tabla de historicos de personas creadas
             contador_historico_personas_eliminadas=3
@@ -1027,6 +1085,7 @@ def busqueda_historico_personas_eliminadas(request):
                 hoja_activa_historico_personas_eliminadas.cell(row=contador_historico_personas_eliminadas,column=3).value = registro.aplicaciones
                 hoja_activa_historico_personas_eliminadas.cell(row=contador_historico_personas_eliminadas,column=4).value = registro.cargo
                 hoja_activa_historico_personas_eliminadas.cell(row=contador_historico_personas_eliminadas,column=5).value = registro.ubicacion
+                hoja_activa_historico_personas_eliminadas.cell(row=contador_historico_personas_eliminadas,column=6).value = registro.centro
                 contador_historico_personas_eliminadas = contador_historico_personas_eliminadas + 1
 
             #despues de registrar los datos en la tabla, vamos a ponerle nombre al archivo

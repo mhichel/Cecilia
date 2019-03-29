@@ -1,3 +1,49 @@
+/*fondo de ventanas modales*/
+.fondo-header-ventana-modal{
+	/*background: rgba(100, 120, 247, 1);*/
+	color: white;
+}
+.fondo-azul-ventana-modal{
+	background: rgba(150, 200, 247, 1);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*CODIGO NO UTILIZADO*/
+
 /*AQUI LA VENTANA MODAL DE CREAR PERSONA APLICACION*/
 
 .ventana_modal_crear_persona_aplicacion{
@@ -210,4 +256,7 @@
 	display: none;
 }
 
+.centro_de_adicion_aplicacion{
+	display: none;
+}
 /*aqui vamos a esconder a las ventanas que no necesitamos a la hora de la adicion de una nueva aplicacion en el formulario de persona*/

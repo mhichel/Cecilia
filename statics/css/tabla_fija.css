@@ -24,3 +24,15 @@
   float: left;
   border-bottom-width: 0;
 }
+
+
+.tabla_listado{
+  background: rgba(0, 94, 255, 0.2);
+}
+.letra_blanca{
+  color: white;
+}
+
+.letra_boldsita{
+  /*font-weight:450;*/
+}

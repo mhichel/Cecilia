@@ -15,13 +15,17 @@ function iniciar_ajax_busquedas(){
   //BUSCADOR CON FILTROS**************************************************************
   var tbody_listar_personas = document.getElementById('cuerpo_del_listado');
   var peticionHTTP_busqueda_anidada;
+  var centro = document.getElementById('centro');
   var ubicacion = document.getElementById('bodegas');
   var nombre_completo = document.getElementById('nombre_completo');
   var cargo = document.getElementById('cargos');
   var aplicacion = document.getElementById('aplicaciones');
   var url = "?";
 
-
+  centro.addEventListener('change', inicializar_ajax_busqueda_anidada, false);
+  ubicacion.addEventListener('change', inicializar_ajax_busqueda_anidada, false);
+  nombre_completo.addEventListener('keyup', inicializar_ajax_busqueda_anidada, false);
+  cargo.addEventListener('change', inicializar_ajax_busqueda_anidada, false);
   ubicacion.addEventListener('change', inicializar_ajax_busqueda_anidada, false);
   nombre_completo.addEventListener('keyup', inicializar_ajax_busqueda_anidada, false);
   cargo.addEventListener('change', inicializar_ajax_busqueda_anidada, false);
@@ -176,8 +180,11 @@ function iniciar_ajax_busquedas(){
 		}
 
     //AQUI OBTENEMOS LOS DATOS Y LOS METEMOS EL VAR URL, EN LA CUAL SE VA A PASAR POR PARAMETRO A LA FUNCION ANTERIOR
+    if (centro.value) {
+      url+=`centro=${centro.value}`
+    }
     if (ubicacion.value) {
-      url+=`ubicacion=${ubicacion.value}`
+      url+=`&ubicacion=${ubicacion.value}`
     }
     if (nombre_completo.value){
       url+=`&nombre_completo=${nombre_completo.value}`

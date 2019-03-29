@@ -8,6 +8,7 @@
 <link rel="stylesheet" href={% static "css/tabla_fija.css" %}>
 <link rel="stylesheet" href={% static "css/input_buscador_general.css" %}>
 <link rel="stylesheet" href={% static "css/estilos_home.css" %}>
+<link rel="stylesheet" href={% static "css/estilos_validacion_formularios.css" %}>
 {% endblock %}
 {% block js %}
 <script type="text/javascript" src="{% static 'js/js_listar_personas/ajax_busquedas.js' %}"></script>
@@ -18,17 +19,45 @@
 <script type="text/javascript" src="{% static 'js/js_listar_personas/ajax_eliminar_persona_aplicacion.js' %}"></script>
 {% endblock %}
 {% block content %}
-<header>
-  <div class="container-fluid div_logo">
-    <h1 class="texto_logo">Gestora de entidades Cecilia<img src={% static "img/logo.gif" %} alt="logo" class="logo"></h1>
-    {% if usuario.META.USERNAME %}
-      <h3 class="usuario">Bienvenid@ {{usuario.META.USERNAME}}!</h3>
-    {% else %}
-      <h3 class="usuario" data-toggle="tooltip" title="Titulo de la seccion">Listado de personas</h3>
-    {% endif %}
-  </div>
-</header>
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">
+    <img src={% static "img/logo_p.gif" %} width="30" height="30" class="d-inline-block align-top" alt="Logo-mi-pequeña-ciega">
+    <strong>Cecilia</strong>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href={% url 'home' %}><strong>Home</strong></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href={% url 'listar_personas' %}><strong>Listado general</strong></a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <strong>Historicos</strong>
+        </a>
+        <div class="dropdown-menu bg-primary" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item bg-primary" href={% url 'listar_historico_personas_creadas' %}><strong class="dropdown_hisotricos">Personas creadas</strong></a>
+          <a class="dropdown-item bg-primary " href={% url 'listar_historico_personas_eliminadas' %}><strong class="dropdown_hisotricos">Personas Eliminadas</strong></a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item bg-primary" href={% url 'listar_historico_aplicaciones_creadas' %}><strong class="dropdown_hisotricos">Aplicaciones creadas</strong></a>
+          <a class="dropdown-item bg-primary" href={% url 'listar_historico_aplicaciones_eliminadas' %}><strong class="dropdown_hisotricos">Aplicaciones eliminadas</strong></a>
+        </div>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <span class="navbar-text">
+        <strong>Gestora de entidades</strong>
+        <h7 class="usuario"><strong>Bienvenid@ {{usuario}}!</strong></h7>
+      </span>
+    </form>
+  </div>
+</nav>
+<br>
 <div class="tabla_entera">
   <div class="container-fluid">
     <input type="search" class="buscador_general form-control" id="buscador_general" placeholder="Busqueda general" data-toggle="tooltip" title="Buscador general: Aqui podras buscar las personas de la tabla, podras colocar cualquier parametro de busqueda, ya que busca en todos los campos">
@@ -43,21 +72,30 @@
   <div class="container-fluid">
     <div class="panel.panel-default">
       <div class="panel-body">
-        <table id="lista_gestora_entidades" class="table table-striped table-bordered table-hover table-fixed">
+        <table id="lista_gestora_entidades" class="table table-striped table-bordered table-hover table-fixed tabla_listado letra_boldsita">
           <thead id="cabeza_tabla_listado">
-            <tr class="bg-info clearfix visible-md-block">
-              <th class="col-md-2" data-toggle="tooltip" title="Este es el campo de ubicacion actual de la persona">Ubicacion<img src={% static "img/filtro_de_ordenar.gif" %} alt="filtro_de_ordenado_ubicacion" class="boton_filtro_ordenado" id="order_by_ubicacion" name="ubicacion" data-toggle="tooltip" title="Este es el filtro de ordenado ascendente o descendente"></th>
+            <tr class="bg-primary clearfix visible-md-block letra_blanca">
+              <th class="col-md-1" data-toggle="tooltip" title="Este es el campo de centro actual de la persona">Centro<img src={% static "img/filtro_de_ordenar.gif" %} alt="filtro_de_ordenado_ubicacion" class="boton_filtro_ordenado" id="order_by_centro" name="centro" data-toggle="tooltip" title="Este es el filtro de ordenado ascendente o descendente"></th>
+              <th class="col-md-1" data-toggle="tooltip" title="Este es el campo de ubicacion actual de la persona">Ubicacion<img src={% static "img/filtro_de_ordenar.gif" %} alt="filtro_de_ordenado_ubicacion" class="boton_filtro_ordenado" id="order_by_ubicacion" name="ubicacion" data-toggle="tooltip" title="Este es el filtro de ordenado ascendente o descendente"></th>
               <th class="col-md-2" data-toggle="tooltip" title="Este es el campo del nombre completo de la persona">Nombre<img src={% static "img/filtro_de_ordenar.gif" %} alt="filtro_de_ordenado_nombre" class="boton_filtro_ordenado" id="order_by_nombre" name="nombre_completo" data-toggle="tooltip" title="Este es el filtro de ordenado ascendente o descendente"></th>
               <th class="col-md-2" data-toggle="tooltip" title="Este es el campo del cargo en la empresa de la persona">Cargo<img src={% static "img/filtro_de_ordenar.gif" %} alt="filtro_de_ordenado_cargo" class="boton_filtro_ordenado" id="order_by_cargo" name="cargo" data-toggle="tooltip" title="Este es el filtro de ordenado ascendente o descendente"></th>
               <th class="col-md-4" data-toggle="tooltip" title="Este es el campo de las aplicaciones de las que tiene dominio actualmente la persona">Aplicaciones<img src={% static "img/filtro_de_ordenar.gif" %} alt="filtro_de_ordenado_aplicaciones" class="boton_filtro_ordenado" id="order_by_aplicaciones" name="aplicaciones" data-toggle="tooltip" title="Este es el filtro de ordenado acendente o descendente"></th>
               <th class="col-md-2" data-toggle="tooltip" title="En este campo en la parte inferior, se mostraran las acciones que se pueden ejecutar, como exportar a Excel o volver hacia atras, etcetera">Acciones</th>
             </tr>
             <tr class="clearfix visible-md-block">
-              <th class="col-md-2">
-                <select class="bodegas form-control" id="bodegas" data-toggle="tooltip" title="En este campo, podras escoger si quieres ver solamente las personas que tengan cierta ubicacion">
+              <th class="col-md-1">
+                <select class="form-control" id="centro" data-toggle="tooltip" title="En este campo, podras escoger si quieres ver solamente las personas que tengan cierto centro">
+                  <option value="all">Todos</option>
+                  {% for centro in centros %}
+                    <option value="{{centro.id}}">{{centro.sede}}</option>
+                  {% endfor %}
+                </select>
+              </th>
+              <th class="col-md-1">
+                <select class="form-control" id="bodegas" data-toggle="tooltip" title="En este campo, podras escoger si quieres ver solamente las personas que tengan cierta ubicacion">
                   <option value="all">Todos</option>
                   {% for bodega in bodegas %}
-                    <option value="{{bodega.id}}">{{bodega.ubicacion}}</option>
+                    <option value="{{bodega.id}}">{{bodega.ubicacion_actual}}</option>
                   {% endfor %}
                 </select>
               </th>
@@ -91,7 +129,8 @@
           <tbody id="cuerpo_del_listado">
             {% for persona in lista %}
               <tr id=tres{{persona.id}} class="clearfix visible-md-block">
-                <td class="col-md-2">{{persona.ubicacion}}</td>
+                <td class="col-md-1">{{persona.centro}}</td>
+                <td class="col-md-1">{{persona.ubicacion}}</td>
                 <td class="col-md-2">{{persona.nombre_completo}}</td>
                 <td class="col-md-2">{{persona.cargo}}</td>
                 <td class="col-md-4">
@@ -125,8 +164,8 @@
 <!--INICIO VENTANA MODAL DE CREACION DE PERSONA APLICACION-->
 <div class="modal fade" id="div_crear_persona">
   <div class="modal-dialog modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
+    <div class="modal-content fondo-azul-ventana-modal">
+      <div class="modal-header bg-primary fondo-header-ventana-modal">
         <h4 class="modal-title">Formulario de adicion de aplicaciones</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
       </div>
@@ -143,8 +182,8 @@
 <!--INICIO VENTANA MODAL DE CREACION DE PERSONA-->
 <div class="modal fade" id="div_crear_persona_nueva">
   <div class="modal-dialog modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
+    <div class="modal-content fondo-azul-ventana-modal">
+      <div class="modal-header bg-primary fondo-header-ventana-modal">
         <h4 class="modal-title">Formulario de creacion de personas</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
       </div>
@@ -164,8 +203,8 @@
 <!--INICIO VENTANA MODAL DE ELIMINACION DE PERSONA-->
 <div class="modal fade" id="div_eliminar_persona">
   <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
+    <div class="modal-content fondo-azul-ventana-modal">
+      <div class="modal-header bg-primary fondo-header-ventana-modal">
         <h4 class="modal-title">Formulario de eliminacion de personas</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
       </div>
@@ -183,8 +222,8 @@
 <!--INICIO VENTANA MODAL DE EDICION DE PERSONA-->
 <div class="modal fade" id="div_editar_persona">
   <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
+    <div class="modal-content fondo-azul-ventana-modal">
+      <div class="modal-header bg-primary fondo-header-ventana-modal">
         <h4 class="modal-title">Formulario de edicion</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
       </div>
@@ -202,8 +241,8 @@
 <!--INICIO VENTANA MODAL DE ELIMINACION DE PERSONA APLICACION-->
 <div class="modal fade" id="div_eliminar_aplicacion_persona">
   <div class="modal-dialog modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
+    <div class="modal-content fondo-azul-ventana-modal">
+      <div class="modal-header bg-primary fondo-header-ventana-modal">
         <h4 class="modal-title">Formulario de eliminacion aplicaciones</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
       </div>

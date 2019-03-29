@@ -96,6 +96,8 @@ function iniciar_ajax_crear_aplicacion() {
     var input_usuario;
     var espacio_1;
     var espacio_2;
+    var span_ticket;
+    var span_usuario;
 
     //CON ESTA FUNCION LO QUE HACEMOS ES QUE CUANDO EL CAMPO ESTE EN CHECKED, PUES QUE PONGA LOS DOS CAMPOS MAS LOS DOS ESPACIOS
     //LOS DOS ESPACIOS SON UNO DEL TICKET Y EL OTRO DEL NOMBRE DE USUARIO DE LA APLICACION A ADICIONAR, LUEGO LE PONEMOS LOS ATRIBUTOS NECESARIOS Y LOS MOSTRAMOS EN PANTALLA
@@ -107,25 +109,33 @@ function iniciar_ajax_crear_aplicacion() {
           input_ticket = document.createElement('input');
           input_ticket.placeholder = "N°.Ticket";
           input_ticket.id = "input_ticket";
+          span_ticket = document.createElement('span');
           espacio_2 = document.createElement('br');
           input_usuario = document.createElement('input');
           input_usuario.placeholder = "Nombre usuario";
           input_usuario.id = "input_usuario";
+          span_usuario = document.createElement('span');
           elemento.target.parentNode.appendChild(espacio_1);
           elemento.target.parentNode.appendChild(input_ticket);
+          elemento.target.parentNode.appendChild(span_ticket);
           elemento.target.parentNode.appendChild(espacio_2);
           elemento.target.parentNode.appendChild(input_usuario);
+          elemento.target.parentNode.appendChild(span_usuario);
         }
       // DE LO CONTRARIO SI CUANDO LE DAMOS CLIC PARA DESCHEKEARLO ENTONCES QUE QUITE LOS INPUTS Y BORRE LAS VARIABLES, PARA QUE CUANDO SE VAYAN A PONER DE NUEVO NO GENERE CONFLICTO
       }else if (elemento.target.checked != "true"){
         elemento.target.parentNode.removeChild(espacio_1);
         elemento.target.parentNode.removeChild(input_ticket);
+        elemento.target.parentNode.removeChild(span_ticket);
         elemento.target.parentNode.removeChild(espacio_2);
         elemento.target.parentNode.removeChild(input_usuario);
+        elemento.target.parentNode.removeChild(span_usuario);
         input_ticket = "";
         input_usuario = "";
         espacio_1 = "";
         espacio_2 = "";
+        span_ticket = "";
+        span_usuario = "";
       }
       aplicacion_a_adicionar = elemento.target.value;
       /*NOTIFICACIONES*/
@@ -219,6 +229,40 @@ function iniciar_ajax_crear_aplicacion() {
 
       //CON ESTE COMANDO PREVENIMOS QUE EL BOTON SUBMIT FUNCIONE Y ENVIE LOS DATOS, YA QUE PRIMERO TENEMOS QUE ORDENARLOS Y DESPUES ENVIARLOS POR AJAX
       a.preventDefault();
+      //aqui vamos a validar si los inputs cumplen con el requerimiento de que si se digitaron datos numericos SOLAMENTE
+      // y si es asi entonces que se sigua ejecutando todo el codigo
+      if (document.getElementById('input_ticket').value.length==0 || document.getElementById('input_usuario').value.length==0) {
+        if (document.getElementById('input_ticket').value.length==0) {
+          span_ticket.innerHTML="Llena el campo ticket";
+          span_ticket.classList.add("span_validacion_formulario")
+        }else{
+          span_ticket.innerHTML=""
+          span_ticket.classList.remove("span_validacion_formulario")
+        }
+        if (document.getElementById('input_usuario').value.length==0) {
+          span_usuario.innerHTML="Llena el campo usuario";
+          span_usuario.classList.add("span_validacion_formulario")
+        }else{
+          span_usuario.innerHTML=""
+          span_usuario.classList.remove("span_validacion_formulario")
+        }
+        return false
+      }else if (isNaN(parseInt(document.getElementById('input_ticket').value))) {
+        span_ticket.innerHTML="Solo se permiten numeros";
+        span_ticket.classList.add("span_validacion_formulario")
+        if (!document.getElementById('input_usuario').value.length==0) {
+          span_usuario.innerHTML=""
+          span_usuario.classList.remove("span_validacion_formulario")
+        }
+        return false
+      }else{
+        span_usuario.innerHTML=""
+        span_usuario.classList.remove("span_validacion_formulario")
+        span_ticket.innerHTML=""
+        span_ticket.classList.remove("span_validacion_formulario")
+      }
+
+
 
       //aqui vamos a crear una variable la cual guardara el id de la tr en la tabla, para que cuando modifiquemos la persona, pues que sea reemplazado
       var tr_a_modificar = document.getElementById(`tres${e.target.id}`);
@@ -246,6 +290,9 @@ function iniciar_ajax_crear_aplicacion() {
       //vamos a sacar el valor de el cargo de la persona
       var cargo = `&cargo=${document.getElementById('id_cargo').value}&`;
 
+      //vamos a sacar el centro al que pertenece la persona
+      var centro = `centro=${document.getElementById('id_centro').value}&`;
+
       //vamos a sacar el valor de la ubicacion actual de la persona
       var ubicacion = `ubicacion=${document.getElementById('id_ubicacion').value}&`
 
@@ -258,7 +305,7 @@ function iniciar_ajax_crear_aplicacion() {
       //y tambien obtenemos el nombre de la persona que queremos agregarle la aplicacion
       /*NOTIFICACIONES*/
 
-      url += token + id + nombre_completo + "&aplicaciones=" + aplicaciones + cargo + ubicacion + ticket + aplicacion + usuario;
+      url += token + id + nombre_completo + "&aplicaciones=" + aplicaciones + cargo + centro + ubicacion + ticket + aplicacion + usuario;
       console.log(url)
 
       //AQUI LLAMAMOS LA FUNCION QUE ENVIARA LOS DATOS DE FORMA SEGURA POR AJAX A DJANGO.
